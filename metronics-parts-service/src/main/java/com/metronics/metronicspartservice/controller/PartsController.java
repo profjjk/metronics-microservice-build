@@ -17,7 +17,14 @@ public class PartsController {
     @Autowired
     PartRepository repo;
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Part createPart(@RequestBody Part part){
+        return repo.save(part);
+    }
+
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Part> getAllParts(@RequestParam(required = false) String description, @RequestParam(required = false) String partNumber){
         if(description != null){
             return repo.findByDescriptionContaining(description);
@@ -28,17 +35,13 @@ public class PartsController {
     }
 
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Optional<Part> getAllParts(@PathVariable int id){
         return repo.findById(id);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Part createPart(@RequestBody Part part){
-        return repo.save(part);
-    }
-
     @PutMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updatePart(@RequestBody Part part){
         repo.save(part);
     }
