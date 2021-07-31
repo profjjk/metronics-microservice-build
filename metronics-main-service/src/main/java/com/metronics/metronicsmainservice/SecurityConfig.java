@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    //this defines our datasource as MySQL
+    //this defines the datasource as MySQL
     DataSource dataSource;
 
     @Autowired

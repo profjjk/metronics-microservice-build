@@ -21,6 +21,12 @@ public class PartController {
         this.partServiceClient = partServiceClient;
     }
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Part addPart(@RequestBody Part part){
+        return partServiceClient.addPart(part);
+    }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Part> getAllParts(){
@@ -31,12 +37,6 @@ public class PartController {
     @ResponseStatus(HttpStatus.OK)
     public Part getPartById(@PathVariable Integer id){
         return partServiceClient.getPartById(id);
-    }
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Part addPart(@RequestBody Part part){
-        return partServiceClient.addPart(part);
     }
 
     @PutMapping

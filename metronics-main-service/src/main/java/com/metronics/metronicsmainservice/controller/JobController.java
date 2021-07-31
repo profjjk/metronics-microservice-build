@@ -23,6 +23,12 @@ public class JobController {
         this.jobServiceClient = jobServiceClient;
     }
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Job addJob(@RequestBody Job job){
+        return jobServiceClient.addJob(job);
+    }
+
     @GetMapping
     public List<JobViewModel> getAllJobs(){
         return jobServiceLayer.getAllJobs();
@@ -45,12 +51,6 @@ public class JobController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateJob(@RequestBody Job job){
         jobServiceClient.updateJob(job);
-    }
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Job addJob(@RequestBody Job job){
-        return jobServiceClient.addJob(job);
     }
 
     @DeleteMapping("/{id}")
