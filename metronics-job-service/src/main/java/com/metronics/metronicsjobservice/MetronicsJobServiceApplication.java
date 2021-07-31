@@ -1,4 +1,4 @@
-package com.metronics.jobservice;
+package com.metronics.metronicsjobservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,8 +1,8 @@
-package com.metronics.jobservice.controller;
+package com.metronics.metronicsjobservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.metronics.jobservice.dto.Job;
-import com.metronics.jobservice.repository.JobRepository;
+import com.metronics.metronicsjobservice.dto.Job;
+import com.metronics.metronicsjobservice.repository.JobRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

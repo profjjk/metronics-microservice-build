@@ -1,6 +1,6 @@
-package com.metronics.jobservice.repository;
+package com.metronics.metronicsjobservice.repository;
 
-import com.metronics.jobservice.dto.Job;
+import com.metronics.metronicsjobservice.dto.Job;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

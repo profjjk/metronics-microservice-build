@@ -1,4 +1,4 @@
-package com.metronics.jobservice;
+package com.metronics.metronicsjobservice;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

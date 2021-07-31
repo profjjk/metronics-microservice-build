@@ -1,6 +1,6 @@
-package com.metronics.jobservice.repository;
+package com.metronics.metronicsjobservice.repository;
 
-import com.metronics.jobservice.dto.Job;
+import com.metronics.metronicsjobservice.dto.Job;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

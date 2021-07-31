@@ -1,7 +1,7 @@
-package com.metronics.jobservice.controller;
+package com.metronics.metronicsjobservice.controller;
 
-import com.metronics.jobservice.dto.Job;
-import com.metronics.jobservice.repository.JobRepository;
+import com.metronics.metronicsjobservice.dto.Job;
+import com.metronics.metronicsjobservice.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

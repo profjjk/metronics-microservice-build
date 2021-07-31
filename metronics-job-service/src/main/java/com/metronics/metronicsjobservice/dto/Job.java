@@ -1,4 +1,4 @@
-package com.metronics.jobservice.dto;
+package com.metronics.metronicsjobservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -15,8 +15,8 @@ public class Job implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Integer customerId;
-    private String type;            // Maintenance, Repair, Training, Callback, Unknown(default)
-    private String status;          // Waiting(default), Scheduled, Completed, Canceled
+    private String type;
+    private String status;
     private String dateCompleted;
     @Lob
     private String problemNotes;
