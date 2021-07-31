@@ -18,9 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -111,7 +109,7 @@ public class CustomerControllerTest {
         listJson = mapper.writeValueAsString(customerList);
 
         doReturn(customerOutput).when(customerServiceClient).getCustomerById(2);
-        doReturn(customerOutput).when(customerServiceClient).addCustomer(customerInput);
+        doReturn(customerOutput).when(customerServiceClient).createCustomer(customerInput);
         doReturn(customerList).when(customerServiceClient).getAllCustomers();
 
 

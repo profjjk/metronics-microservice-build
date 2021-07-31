@@ -10,17 +10,13 @@ import java.util.Objects;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler"})
 @Table(name = "users")
 public class Users {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     @NotNull
     private String username;
     @NotNull
     private String password;
-
     private boolean enabled;
 
     public Integer getId() {

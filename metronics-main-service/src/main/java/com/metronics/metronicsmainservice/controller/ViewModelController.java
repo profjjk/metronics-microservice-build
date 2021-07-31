@@ -1,7 +1,7 @@
 package com.metronics.metronicsmainservice.controller;
 
-import com.metronics.metronicsmainservice.ViewModels.RequestViewModel;
-import com.metronics.metronicsmainservice.service.RequestServiceLayer;
+import com.metronics.metronicsmainservice.ViewModels.JobViewModel;
+import com.metronics.metronicsmainservice.service.JobServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +14,11 @@ import java.util.List;
 public class ViewModelController {
 
     @Autowired
-    private RequestServiceLayer serviceLayer;
+    private JobServiceLayer serviceLayer;
 
-    @GetMapping(value = "/viewmodel")
-    @ResponseStatus(value = HttpStatus.OK)
-    public List<RequestViewModel> getViewModel() {
-        return serviceLayer.getAllRequests();
+    @GetMapping("/viewmodel")
+    @ResponseStatus(HttpStatus.OK)
+    public List<JobViewModel> getViewModel() {
+        return serviceLayer.getAllJobs();
     }
 }

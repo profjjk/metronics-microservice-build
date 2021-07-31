@@ -9,23 +9,20 @@ import java.util.Objects;
 
 @Entity
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler"})
-@Table(name = "customer")
+@Table(name = "customers")
 public class Customer {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     @NotNull
     private String businessName;
     private String contactName;
-
     @NotNull
     private String phone;
-
     @NotNull
-    private String street;
+    private String street1;
+    private String street2;
     @NotNull
     private String city;
     @NotNull
@@ -65,12 +62,20 @@ public class Customer {
         this.phone = phone;
     }
 
-    public String getStreet() {
-        return street;
+    public String getStreet1() {
+        return street1;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setStreet1(String street1) {
+        this.street1 = street1;
+    }
+
+    public String getStreet2() {
+        return street2;
+    }
+
+    public void setStreet2(String street2) {
+        this.street2 = street2;
     }
 
     public String getCity() {
@@ -102,14 +107,13 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(businessName, customer.businessName) && Objects.equals(contactName, customer.contactName) && Objects.equals(phone, customer.phone) && Objects.equals(street, customer.street) && Objects.equals(city, customer.city) && Objects.equals(state, customer.state) && Objects.equals(zipcode, customer.zipcode);
+        return Objects.equals(id, customer.id) && Objects.equals(businessName, customer.businessName) && Objects.equals(contactName, customer.contactName) && Objects.equals(phone, customer.phone) && Objects.equals(street1, customer.street1) && Objects.equals(street2, customer.street2) && Objects.equals(city, customer.city) && Objects.equals(state, customer.state) && Objects.equals(zipcode, customer.zipcode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, businessName, contactName, phone, street, city, state, zipcode);
+        return Objects.hash(id, businessName, contactName, phone, street1, street2, city, state, zipcode);
     }
-
 
     @Override
     public String toString() {
@@ -118,7 +122,8 @@ public class Customer {
                 ", businessName='" + businessName + '\'' +
                 ", contactName='" + contactName + '\'' +
                 ", phone='" + phone + '\'' +
-                ", street='" + street + '\'' +
+                ", street1='" + street1 + '\'' +
+                ", street2='" + street2 + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
                 ", zipcode='" + zipcode + '\'' +

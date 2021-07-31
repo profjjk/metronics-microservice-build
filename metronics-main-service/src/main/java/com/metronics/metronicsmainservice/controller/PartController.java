@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/part")
+@RequestMapping("/api/parts")
 //@RefreshScope
 public class PartController {
 
@@ -21,30 +21,34 @@ public class PartController {
         this.partServiceClient = partServiceClient;
     }
 
-    @RequestMapping( method = RequestMethod.GET)
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Part> getAllParts(){
-            return partServiceClient.getAllParts();
+        return partServiceClient.getAllParts();
     }
-    @RequestMapping( value= "/{id}", method = RequestMethod.GET)
-    public Part getPartByID(@PathVariable Integer id){
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Part getPartById(@PathVariable Integer id){
         return partServiceClient.getPartById(id);
     }
-    @RequestMapping( value = "", method = RequestMethod.POST)
+
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Part addPart(@RequestBody Part part){
         return partServiceClient.addPart(part);
     }
-    @RequestMapping( value = "", method = RequestMethod.PUT)
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updatePart(@RequestBody Part part){
         partServiceClient.updatePart(part);
     }
-    @RequestMapping( value = "/{id}", method = RequestMethod.DELETE)
+
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updatePart(@PathVariable Integer id){
         partServiceClient.deletePart(id);
     }
-
-
-
 }
 
