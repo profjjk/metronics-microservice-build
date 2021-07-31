@@ -1,0 +1,644 @@
+openapi: 3.0.3
+info:
+  title: Api Documentation
+  description: Api Documentation
+  termsOfService: 'urn:tos'
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0'
+  version: '1.0'
+servers:
+  - url: 'http://localhost:5557'
+    description: Inferred Url
+tags:
+  - name: customer-controller
+    description: Customer Controller
+  - name: part-controller
+    description: Part Controller
+  - name: request-controller
+    description: Request Controller
+  - name: user-controller
+    description: User Controller
+paths:
+  /api/customer:
+    get:
+      tags:
+        - customer-controller
+      summary: findAllCustomers
+      operationId: findAllCustomersUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - customer-controller
+      summary: createCustomer
+      operationId: createCustomerUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '201':
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/api/customer/{id}':
+    get:
+      tags:
+        - customer-controller
+      summary: findCustomerById
+      operationId: findCustomerByIdUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - customer-controller
+      summary: updateCustomerById
+      operationId: updateCustomerByIdUsingPUT
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '201':
+          description: Created
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - customer-controller
+      summary: deleteCustomerById
+      operationId: deleteCustomerByIdUsingDELETE
+      parameters:
+        - name: businessName
+          in: query
+          required: false
+          style: form
+          schema:
+            type: string
+        - name: city
+          in: query
+          required: false
+          style: form
+          schema:
+            type: string
+        - name: contactName
+          in: query
+          required: false
+          style: form
+          schema:
+            type: string
+        - name: phone
+          in: query
+          required: false
+          style: form
+          schema:
+            type: string
+        - name: state
+          in: query
+          required: false
+          style: form
+          schema:
+            type: string
+        - name: street
+          in: query
+          required: false
+          style: form
+          schema:
+            type: string
+        - name: zipcode
+          in: query
+          required: false
+          style: form
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          allowReserved: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /api/part:
+    get:
+      tags:
+        - part-controller
+      summary: getAllParts
+      operationId: getAllPartsUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Part'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - part-controller
+      summary: updatePart
+      operationId: updatePartUsingPUT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Part'
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - part-controller
+      summary: addPart
+      operationId: addPartUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Part'
+      responses:
+        '201':
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Part'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/api/part/{id}':
+    get:
+      tags:
+        - part-controller
+      summary: getPartByID
+      operationId: getPartByIDUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Part'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - part-controller
+      summary: updatePart
+      operationId: updatePartUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /api/requests:
+    get:
+      tags:
+        - request-controller
+      summary: getAllRequests
+      operationId: getAllRequestsUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RequestViewModel'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    put:
+      tags:
+        - request-controller
+      summary: updateRequest
+      operationId: updateRequestUsingPUT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request'
+      responses:
+        '201':
+          description: Created
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - request-controller
+      summary: addRequest
+      operationId: addRequestUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request'
+      responses:
+        '201':
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Request'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/api/requests/status/{status}':
+    get:
+      tags:
+        - request-controller
+      summary: getRequestById
+      operationId: getRequestByIdUsingGET_1
+      parameters:
+        - name: status
+          in: path
+          description: status
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RequestViewModel'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/api/requests/{id}':
+    get:
+      tags:
+        - request-controller
+      summary: getRequestById
+      operationId: getRequestByIdUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RequestViewModel'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    delete:
+      tags:
+        - request-controller
+      summary: deleteRequest
+      operationId: deleteRequestUsingDELETE
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          style: simple
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /api/admin:
+    get:
+      tags:
+        - user-controller
+      summary: getAllCustomers
+      operationId: getAllCustomersUsingGET
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Users'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - user-controller
+      summary: createNewAdmin
+      operationId: createNewAdminUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+      responses:
+        '201':
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Users'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/customers:
+    post:
+      tags:
+        - user-controller
+      summary: createNewCustomer
+      operationId: createNewCustomerUsingPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+      responses:
+        '201':
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Users'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /api/loggedIn:
+    get:
+      tags:
+        - user-controller
+      summary: isLoggedIn
+      operationId: isLoggedInUsingGET
+      parameters:
+        - name: name
+          in: query
+          required: false
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+components:
+  schemas:
+    Customer:
+      title: Customer
+      type: object
+      properties:
+        businessName:
+          type: string
+        city:
+          type: string
+        contactName:
+          type: string
+        id:
+          type: integer
+          format: int32
+        phone:
+          type: string
+        state:
+          type: string
+        street:
+          type: string
+        zipcode:
+          type: string
+    Part:
+      title: Part
+      type: object
+      properties:
+        description:
+          type: string
+        id:
+          type: integer
+          format: int32
+        partNumber:
+          type: string
+        purchasePrice:
+          type: number
+          format: double
+        quantity:
+          type: integer
+          format: int32
+        salePrice:
+          type: number
+          format: double
+    Request:
+      title: Request
+      type: object
+      properties:
+        customerId:
+          type: integer
+          format: int32
+        dateCompleted:
+          type: string
+        id:
+          type: integer
+          format: int32
+        invoiceNumber:
+          type: string
+        problemNotes:
+          type: string
+        repairNotes:
+          type: string
+        status:
+          type: string
+        type:
+          type: string
+    RequestViewModel:
+      title: RequestViewModel
+      type: object
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
+        dateCompleted:
+          type: string
+        id:
+          type: integer
+          format: int32
+        invoiceNumber:
+          type: string
+        problemNotes:
+          type: string
+        repairNotes:
+          type: string
+        status:
+          type: string
+        type:
+          type: string
+    Users:
+      title: Users
+      required:
+        - password
+        - username
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        id:
+          type: integer
+          format: int32
+        password:
+          type: string
+        username:
+          type: string
