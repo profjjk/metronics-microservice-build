@@ -1,20 +1,14 @@
 package com.metronics.metronicsmainservice.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class Customer {
-
-
     private Integer id;
-
     private String businessName;
     private String contactName;
     private String phone;
-    private String street;
+    private String street1;
+    private String street2;
     private String city;
     private String state;
     private String zipcode;
@@ -51,12 +45,20 @@ public class Customer {
         this.phone = phone;
     }
 
-    public String getStreet() {
-        return street;
+    public String getStreet1() {
+        return street1;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setStreet1(String street1) {
+        this.street1 = street1;
+    }
+
+    public String getStreet2() {
+        return street2;
+    }
+
+    public void setStreet2(String street2) {
+        this.street2 = street2;
     }
 
     public String getCity() {
@@ -88,14 +90,13 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(businessName, customer.businessName) && Objects.equals(contactName, customer.contactName) && Objects.equals(phone, customer.phone) && Objects.equals(street, customer.street) && Objects.equals(city, customer.city) && Objects.equals(state, customer.state) && Objects.equals(zipcode, customer.zipcode);
+        return Objects.equals(id, customer.id) && Objects.equals(businessName, customer.businessName) && Objects.equals(contactName, customer.contactName) && Objects.equals(phone, customer.phone) && Objects.equals(street1, customer.street1) && Objects.equals(street2, customer.street2) && Objects.equals(city, customer.city) && Objects.equals(state, customer.state) && Objects.equals(zipcode, customer.zipcode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, businessName, contactName, phone, street, city, state, zipcode);
+        return Objects.hash(id, businessName, contactName, phone, street1, street2, city, state, zipcode);
     }
-
 
     @Override
     public String toString() {
@@ -104,7 +105,8 @@ public class Customer {
                 ", businessName='" + businessName + '\'' +
                 ", contactName='" + contactName + '\'' +
                 ", phone='" + phone + '\'' +
-                ", street='" + street + '\'' +
+                ", street1='" + street1 + '\'' +
+                ", street2='" + street2 + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
                 ", zipcode='" + zipcode + '\'' +

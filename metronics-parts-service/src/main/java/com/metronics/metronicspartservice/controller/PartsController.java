@@ -11,41 +11,44 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/parts")
 public class PartsController {
 
     @Autowired
-    PartRepository partRepo;
-    //get all and search
-    @GetMapping("/part")
-    public List<Part> getAllParts(@RequestParam(required = false) String description, @RequestParam(required = false) String partNumber){
-        if(description != null){
-            return partRepo.findByDescriptionContaining(description);
-        } else if(partNumber != null){
-           return partRepo.findByPartNumberContaining(partNumber);
-        }
-        return partRepo.findAll();
-    }
-    //get by id
-    @GetMapping("/part/{id}")
-    public Optional<Part> getAllParts(@PathVariable int id){
-        return partRepo.findById(id);
+    PartRepository repo;
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Part createPart(@RequestBody Part part){
+        return repo.save(part);
     }
 
-    //new part
-    @PostMapping("/part")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Part saveNewPart(@RequestBody Part part){
-        return partRepo.save(part);
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Part> getAllParts(@RequestParam(required = false) String description, @RequestParam(required = false) String partNumber){
+        if(description != null){
+            return repo.findByDescriptionContaining(description);
+        } else if(partNumber != null){
+           return repo.findByPartNumberContaining(partNumber);
+        }
+        return repo.findAll();
     }
-    //update part
-    @PutMapping("/part")
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Optional<Part> getAllParts(@PathVariable int id){
+        return repo.findById(id);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updatePart(@RequestBody Part part){
-        partRepo.save(part);
+        repo.save(part);
     }
-    //delete part
-    @DeleteMapping("/part/{id}")
+
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updatePart(@PathVariable int id){
-        partRepo.deleteById(id);
+        repo.deleteById(id);
     }
 }

@@ -9,15 +9,11 @@ import java.util.Objects;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler"})
 @Table(name = "authorities")
 public class Authorities {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     private String username;
-
     private Integer userId;
-
     @Enumerated(EnumType.STRING)
     private Authority authority;
 

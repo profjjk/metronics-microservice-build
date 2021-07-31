@@ -1,8 +1,5 @@
 package com.metronics.metronicsmainservice.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
 import java.util.Objects;
 
 public class Part {
@@ -19,9 +16,6 @@ public class Part {
         this.purchasePrice = purchasePrice;
         this.salePrice = salePrice;
         this.quantity = quantity;
-    }
-    public Part(){
-
     }
 
     public Integer getId() {

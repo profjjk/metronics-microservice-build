@@ -22,8 +22,8 @@ public class UserController {
     @Autowired
     AuthoritiesRepository authRepo;
 
-    @PostMapping(value = "/api/admin")
-    @ResponseStatus(value = HttpStatus.CREATED)
+    @PostMapping("/api/admin")
+    @ResponseStatus(HttpStatus.CREATED)
     public Users createNewAdmin(@RequestBody Users users) {
         Authorities auth1 = new Authorities();
         Authorities auth2 = new Authorities();
@@ -49,8 +49,8 @@ public class UserController {
         return newUser;
     }
 
-    @PostMapping(value = "/api/customers")
-    @ResponseStatus(value = HttpStatus.CREATED)
+    @PostMapping("/api/customers")
+    @ResponseStatus(HttpStatus.CREATED)
     public Users createNewCustomer(@RequestBody Users users) {
         Authorities auth2 = new Authorities();
 
@@ -68,14 +68,14 @@ public class UserController {
         return newUser;
     }
 
-    @GetMapping(value = "/api/admin")
-    @ResponseStatus(value = HttpStatus.CREATED)
+    @GetMapping("/api/admin")
+    @ResponseStatus(HttpStatus.CREATED)
     public List<Users> getAllCustomers() {
     return userRepository.findAll();
     }
 
-    @GetMapping(value = "/api/loggedIn")
-    @ResponseStatus(value = HttpStatus.OK)
+    @GetMapping("/api/loggedIn")
+    @ResponseStatus(HttpStatus.OK)
     public String isLoggedIn(Principal principal) {
         return principal.getName() + " is authenticated.";
     }

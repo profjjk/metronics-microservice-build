@@ -10,55 +10,41 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/customers")
 public class CustomerController {
 
     @Autowired
-    CustomerRepository customerRepository;
+    CustomerRepository repo;
 
-    @PostMapping(value = "/api/customer")
+    @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public Customer createCustomer(@RequestBody Customer customer) {
-        Customer newCustomer = customerRepository.save(customer);
-        return newCustomer;
-
+        return repo.save(customer);
     }
 
-
-    @GetMapping(value = "/api/customer")
+    @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public List<Customer> findAllCustomers() {
-        return customerRepository.findAll();
+        return repo.findAll();
     }
 
-    @GetMapping(value = "/api/customer/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
     public Customer findCustomerById(@PathVariable int id) {
-        Optional<Customer> customer = customerRepository.findById(id);
-        if (customer.isPresent()) {
-            return customer.get();
-        }
-        throw new RuntimeException("No customer associated with id: " + id);
+        return repo.getById(id);
 
     }
 
-    @PutMapping(value = "/api/customer/{id}")
+    @PutMapping
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void updateCustomerById(@RequestBody Customer customer, @PathVariable int id) {
-        if (customer.getId() != id) {
-            throw new IllegalArgumentException();
-        } else {
-            customerRepository.save(customer);
-        }
+    public void updateCustomer(@RequestBody Customer customer) {
+        repo.save(customer);
     }
 
-    @DeleteMapping(value = "/api/customer/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteCustomerById(Customer customer, @PathVariable int id) {
-        if (customer.getId() != id) {
-            throw new IllegalArgumentException();
-        } else {
-            customerRepository.deleteById(id);
-        }
+        repo.deleteById(id);
     }
 
 }

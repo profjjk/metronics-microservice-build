@@ -17,7 +17,7 @@ tags:
   - name: part-controller
     description: Part Controller
   - name: request-controller
-    description: Request Controller
+    description: Job Controller
   - name: user-controller
     description: User Controller
 paths:
@@ -315,7 +315,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/RequestViewModel'
+                  $ref: '#/components/schemas/JobViewModel'
         '401':
           description: Unauthorized
         '403':
@@ -331,7 +331,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Request'
+              $ref: '#/components/schemas/Job'
       responses:
         '201':
           description: Created
@@ -352,14 +352,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Request'
+              $ref: '#/components/schemas/Job'
       responses:
         '201':
           description: Created
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/Request'
+                $ref: '#/components/schemas/Job'
         '401':
           description: Unauthorized
         '403':
@@ -388,7 +388,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/RequestViewModel'
+                  $ref: '#/components/schemas/JobViewModel'
         '401':
           description: Unauthorized
         '403':
@@ -416,7 +416,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/RequestViewModel'
+                $ref: '#/components/schemas/JobViewModel'
         '401':
           description: Unauthorized
         '403':
@@ -584,7 +584,7 @@ components:
           type: number
           format: double
     Request:
-      title: Request
+      title: Job
       type: object
       properties:
         customerId:
@@ -606,7 +606,7 @@ components:
         type:
           type: string
     RequestViewModel:
-      title: RequestViewModel
+      title: JobViewModel
       type: object
       properties:
         customer:

@@ -9,42 +9,38 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/customer")
+@RequestMapping("/api/customers")
 public class CustomerController {
     @Autowired
     CustomerServiceClient customerServiceClient;
 
-    @PostMapping(value = "")
-    @ResponseStatus(value = HttpStatus.CREATED)
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Customer createCustomer(@RequestBody Customer customer) {
-        return customerServiceClient.addCustomer(customer);
+        return customerServiceClient.createCustomer(customer);
     }
-    @GetMapping(value = "")
-    @ResponseStatus(value = HttpStatus.OK)
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Customer> findAllCustomers() {
         return customerServiceClient.getAllCustomers();
     }
 
-    @GetMapping(value = "{id}")
-    @ResponseStatus(value = HttpStatus.OK)
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public Customer findCustomerById(@PathVariable int id) {
         return customerServiceClient.getCustomerById(id);
     }
 
-    @PutMapping(value = "{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void updateCustomerById(@RequestBody Customer customer, @PathVariable int id) {
-        customerServiceClient.updateCustomer(customer, id);
+    @PutMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateCustomer(@RequestBody Customer customer) {
+        customerServiceClient.updateCustomer(customer);
     }
 
-    @DeleteMapping(value = "{id}")
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCustomerById(Customer customer, @PathVariable int id) {
-        if (customer.getId() != id) {
-            throw new IllegalArgumentException();
-        } else {
-            customerServiceClient.deleteCustomer(id);
-        }
+        customerServiceClient.deleteCustomer(id);
     }
 
 
