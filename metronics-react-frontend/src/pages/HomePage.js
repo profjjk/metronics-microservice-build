@@ -1,37 +1,23 @@
-import { useQuery, useQueryClient } from 'react-query';
-import { SideNavBar, QuickActions, PartsWarning, NewRequests } from '../components';
+import { useQuery } from 'react-query';
 import React from 'react';
 import API from '../API';
 
-const fetchRequests = async () => await API.getAllRequests();
+const fetchJobs = async () => await API.getAllJobs();
 const fetchParts = async () => await API.getAllParts();
 const fetchCustomers = async () => await API.getAllCustomers();
 
 const HomePage = () => {
-  const requests = useQuery('requests', fetchRequests);
+  const jobs = useQuery('jobs', fetchJobs);
   const parts = useQuery('parts', fetchParts);
   const customers = useQuery('customers', fetchCustomers);
 
-  // const queryClient = useQueryClient();
-
-  switch (requests.status || parts.status) {
+  switch (jobs.status || parts.status || customers.status) {
     case 'loading':
       return <h1 className="text-center my-5">Loading</h1>;
     case 'error':
       return <h4 className="text-center my-5">Oops, something went wrong!</h4>
     default:
-      return (
-      <>
-        <SideNavBar />
-        <div className="main-section">
-          <QuickActions />
-          <PartsWarning 
-            parts={parts.data} />
-          <NewRequests 
-            requests={requests.data} />
-        </div>
-      </>
-    )
+      return <h1 className="text-center my-5">Data Load Successful</h1>;
   }
 }
 

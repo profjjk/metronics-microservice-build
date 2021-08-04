@@ -1,93 +1,63 @@
 import ky from 'ky';
-import Cookies from 'js-cookie';
-import axios from "axios";
 
-const customerUrl = 'http://localhost:5557/api/customer/';
-const requestUrl = 'http://localhost:5557/api/requests/';
-const partUrl = 'http://localhost:5557/api/part/';
-const loginUrl = 'http://localhost:5557/api/loggedIn/';
-const viewModelUrl = 'http://localhost:5557/viewmodel/';
+const customerUrl = 'http://localhost:5557/api/customers/';
+const jobUrl = 'http://localhost:5557/api/jobs/';
+const partUrl = 'http://localhost:5557/api/parts/';
 
 
 const API = {
-
-  //View model
-
-  getViewModel() {
-    return axios.get(viewModelUrl, { ...this.options });
-  },
-
   // Customers
   getAllCustomers() {
-    return ky.get(customerUrl, { ...this.options }).json();
+    return ky.get(customerUrl).json();
   },
   getCustomerById(id) {
-    return ky.get(customerUrl + id, { ...this.options }).json();
+    return ky.get(customerUrl + id).json();
   },
   createCustomer(customer) {
-    return ky.post(customerUrl, { json: customer, ...this.options }).json();
+    return ky.post(customerUrl, { json: customer }).json();
   },
   updateCustomer(customer, id) {
-    return ky.put(customerUrl + id, { json: customer, ...this.options }).json();
+    return ky.put(customerUrl + id, { json: customer }).json();
   },
   deleteCustomer(customer, id) {
-    return ky.delete(customerUrl + id, { json: customer, ...this.options }).json();
+    return ky.delete(customerUrl + id, { json: customer }).json();
   },
 
-  // Requests
-  getAllRequests() {
-    return ky.get(requestUrl, { ...this.options }).json();
+  // Jobs
+  getAllJobs() {
+    return ky.get(jobUrl).json();
   },
-  getRequestById(id) {
-    return ky.get(requestUrl + id, { ...this.options }).json();
+  getJobById(id) {
+    return ky.get(jobUrl + id).json();
   },
-  createRequest(request) {
-    return ky.post(requestUrl, { json: request, ...this.options }).json();
+  createJob(job) {
+    return ky.post(jobUrl, { json: job }).json();
   },
-  findByStatus(status) {
-    return ky.get(requestUrl + 'status/' + status, { ...this.options }).json();
+  findJobByStatus(status) {
+    return ky.get(jobUrl + 'status/' + status);
   },
-  updateRequest(request) {
-    console.log({...this.options, json: request })
-    return ky.put(requestUrl, { json: request, ...this.options }).json();
+  updateJob(job) {
+    return ky.put(jobUrl, { json: job }).json();
   },
-  deleteRequest(id,) {
-    return ky.delete(requestUrl + id, { ...this.options });
+  deleteJob(id,) {
+    return ky.delete(jobUrl + id);
   },
 
   // Parts
   getAllParts() {
-    return ky.get(partUrl, { ...this.options }).json();
+    return ky.get(partUrl).json();
   },
   getPartById(id) {
-    return ky.get(partUrl + id, { ...this.options }).json();
+    return ky.get(partUrl + id).json();
   },
   createPart(part) {
-    return ky.post(partUrl, { json: part, ...this.options }).json();
+    return ky.post(partUrl, { json: part }).json();
   },
   updatePart(part) {
-    console.log({...this.options, json:part})
-    return ky.put(partUrl, { ...this.options, json:part });
+    return ky.put(partUrl, { json: part }).json();
   },
   deletePart(id) {
-    return ky.delete(partUrl + id, { ...this.options });
-  },
-  async loggedIn(username, password) {
-    const authToken = btoa(`${username}:${password}`);
-    const response = await fetch('http://localhost:5557/api/loggedIn', {
-      headers: {
-        'Authorization': `Basic ${authToken}`
-      },
-      credentials: "include"
-    })
-
-
-  },
-  options: {
-    headers: {
-      'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN')
-    },
-    credentials: 'include'
+    return ky.delete(partUrl + id);
   }
 }
 
