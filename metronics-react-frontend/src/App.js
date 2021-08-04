@@ -1,5 +1,5 @@
 import "./App.css";
-import { HomePage } from "./pages";
+import { Home } from "./pages";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -11,7 +11,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <Router>
         <Switch>
-          <Route exact path="/home" component={HomePage} />
+          <Route exact path="/home" component={Home} />
         </Switch>
       </Router>
       <ReactQueryDevtools />

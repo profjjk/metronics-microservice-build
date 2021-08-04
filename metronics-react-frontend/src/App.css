@@ -1,0 +1,27 @@
+/***** GENERAL STYLES *****/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.main-section {
+  margin-left: 250px;
+  padding: 50px;
+}
+
+/***** PAGE STYLES *****/
+main {
+  padding-left: 250px;
+}
+
+/***** COMPONENT STYLES *****/
+/* SideNavbar */
+nav {
+  width: 250px;
+  height: 100vh;
+  background: #eee;
+}
+nav li {
+  list-style: none;
+  text-decortation: none;
+}
