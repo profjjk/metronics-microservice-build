@@ -51,7 +51,7 @@ public class JobServiceLayerTest {
         Customer customerInput = new Customer();
         customerInput.setCity("Montclair");
         customerInput.setState("New Jersey");
-        customerInput.setStreet("Claremont");
+        customerInput.setStreet1("Claremont");
         customerInput.setZipcode("07054");
         customerInput.setPhone("123-456-7890");
         customerInput.setContactName("Amanda");

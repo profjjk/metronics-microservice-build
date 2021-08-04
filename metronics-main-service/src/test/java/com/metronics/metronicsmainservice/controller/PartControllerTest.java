@@ -2,13 +2,11 @@ package com.metronics.metronicsmainservice.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.metronics.metronicsmainservice.Feign.PartServiceClient;
-//import com.metronics.metronicsmainservice.SecurityConfig;
 import com.metronics.metronicsmainservice.model.Part;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -30,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = PartController.class, excludeAutoConfiguration = { SecurityAutoConfiguration.class})
+@WebMvcTest
 @AutoConfigureMockMvc(addFilters = false)
 public class PartControllerTest {
     @Autowired

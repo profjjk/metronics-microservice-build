@@ -49,11 +49,10 @@ public class UserController {
         return newUser;
     }
 
-    @PostMapping("/api/customers")
+    @PostMapping("/api/users")
     @ResponseStatus(HttpStatus.CREATED)
-    public Users createNewCustomer(@RequestBody Users users) {
+    public Users createNewUser(@RequestBody Users users) {
         Authorities auth2 = new Authorities();
-
 
         PasswordEncoder enc = new BCryptPasswordEncoder();
         users.setPassword(enc.encode(users.getPassword()));
@@ -70,7 +69,7 @@ public class UserController {
 
     @GetMapping("/api/admin")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<Users> getAllCustomers() {
+    public List<Users> getAllUsers() {
     return userRepository.findAll();
     }
 
@@ -79,8 +78,4 @@ public class UserController {
     public String isLoggedIn(Principal principal) {
         return principal.getName() + " is authenticated.";
     }
-
-
-
-
 }

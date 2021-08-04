@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -27,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = CustomerController.class, excludeAutoConfiguration = { SecurityAutoConfiguration.class})
+@WebMvcTest
 @AutoConfigureMockMvc(addFilters = false)
 public class CustomerControllerTest {
 
@@ -59,7 +58,7 @@ public class CustomerControllerTest {
         customerOutput = new Customer();
         customerOutput.setCity("Montclair");
         customerOutput.setState("New Jersey");
-        customerOutput.setStreet("Claremont");
+        customerOutput.setStreet1("Claremont");
         customerOutput.setZipcode("07054");
         customerOutput.setPhone("123-456-7890");
         customerOutput.setContactName("Amanda");
@@ -71,7 +70,7 @@ public class CustomerControllerTest {
         customerInput = new Customer();
         customerInput.setCity("Montclair");
         customerInput.setState("New Jersey");
-        customerInput.setStreet("Claremont");
+        customerInput.setStreet1("Claremont");
         customerInput.setZipcode("07054");
         customerInput.setPhone("123-456-7890");
         customerInput.setContactName("Amanda");
@@ -84,7 +83,7 @@ public class CustomerControllerTest {
         addCustomer = new Customer();
         addCustomer.setCity("Montclair");
         addCustomer.setState("New Jersey");
-        addCustomer.setStreet("Claremont");
+        addCustomer.setStreet1("Claremont");
         addCustomer.setZipcode("07054");
         addCustomer.setPhone("123-456-7890");
         addCustomer.setContactName("Amanda");
@@ -94,7 +93,7 @@ public class CustomerControllerTest {
         updateCustomer = new Customer();
         updateCustomer.setCity("Montclair");
         updateCustomer.setState("New Jersey");
-        updateCustomer.setStreet("Claremont");
+        updateCustomer.setStreet1("Claremont");
         updateCustomer.setZipcode("07054");
         updateCustomer.setPhone("123-456-7890");
         updateCustomer.setContactName("Update");

@@ -7,8 +7,8 @@ import java.util.Objects;
 public class JobViewModel {
     private Integer id;
     private Customer customer;
-    private String type;            // Maintenance, Repair, Training, Callback, Unknown(default)
-    private String status;          // Waiting(default), Scheduled, Completed, Canceled
+    private String type;
+    private String status;
     private String dateCompleted;
     private String problemNotes;
     private String repairNotes;

@@ -7,21 +7,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @FeignClient(name = "part-service")
-@RequestMapping("/api/parts")
 public interface PartServiceClient {
-    @PostMapping
+    @RequestMapping(value = "/api/parts", method = RequestMethod.POST)
     public Part addPart(@RequestBody Part part);
 
-    @GetMapping
+    @RequestMapping(value = "/api/parts", method = RequestMethod.GET)
     public List<Part> getAllParts();
 
-    @GetMapping("/{id}")
+    @RequestMapping(value = "/api/parts/{id}", method = RequestMethod.GET)
     public Part getPartById(@PathVariable Integer id);
 
-    @PutMapping
+    @RequestMapping(value = "/api/parts", method = RequestMethod.PUT)
     public void updatePart(@RequestBody Part part);
 
-    @DeleteMapping("/{id}")
+    @RequestMapping(value = "/api/parts/{id}", method = RequestMethod.DELETE)
     public void deletePart(@PathVariable Integer id);
-
 }
