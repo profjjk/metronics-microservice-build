@@ -5,7 +5,7 @@ const Searchbar = ({ heading, subheading, placeholder, setSearch }) => {
 
   const searchJobs = e => {
     e.preventDefault();
-    setSearch(search.current.value.toLowerCase());
+    setSearch(search.current.value);
   }
 
   return (
