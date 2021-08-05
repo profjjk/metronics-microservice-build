@@ -1,8 +1,8 @@
 import ky from 'ky';
 
-const customerUrl = 'http://localhost:5557/api/customers/';
-const jobUrl = 'http://localhost:5557/api/jobs/';
-const partUrl = 'http://localhost:5557/api/parts/';
+const customerUrl = 'http://localhost:8080/api/customers/';
+const jobUrl = 'http://localhost:8080/api/jobs/';
+const partUrl = 'http://localhost:8080/api/parts/';
 
 
 const API = {

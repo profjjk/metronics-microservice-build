@@ -8,9 +8,9 @@ const fetchCustomers = async () => await API.getAllCustomers();
 const fetchParts = async () => await API.getAllParts();
 
 const Home = () => {
-  const jobs = useQuery('jobs', fetchJobs);
-  const customers = useQuery('customers', fetchCustomers);
-  const parts = useQuery('parts', fetchParts);
+  const jobs = useQuery('jobs', fetchJobs, { staleTime: 60000 });
+  const customers = useQuery('customers', fetchCustomers, { staleTime: 60000 });
+  const parts = useQuery('parts', fetchParts, { staleTime: 60000 });
   console.log("*** JOBS ***");
   console.log(jobs);
   console.log("*** CUSTOMERS ***");

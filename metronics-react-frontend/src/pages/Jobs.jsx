@@ -1,17 +1,41 @@
-import { useQueryClient } from 'react-query';
-import { SideNavbar } from '../components';
+import { useState } from 'react';
+import { SideNavbar, Searchbar, JobForm, JobsTable } from '../components';
 
 const Jobs = () => {
-  const queryClient = useQueryClient();
-  const jobsList = queryClient.getQueryData('jobs');
-  console.log(jobsList)
+  const [search, setSearch] = useState('');
+  
+  const [showForm, setShowForm] = useState(false);
+  const [jobId, setJobId] = useState();
+
 
   return (
     <main>
       <SideNavbar />
-      <h1 className="text-center my-5">Service Jobs Page</h1>
+      <div className="p-5">
+        {showForm ? (
+          ""
+        ) : (
+          <Searchbar
+            heading="Service Job Search"
+            subheading="Search by invoice #, date, or customer"
+            placeholder="Invoice #, date, or customer"
+            setSearch={setSearch}
+          />
+        )}
+        {showForm ? (
+          <JobForm
+            setShowForm={setShowForm}
+            jobId={jobId}
+          />
+        ) : (
+          <JobsTable
+            setShowForm={setShowForm}
+            setJobId={setJobId}
+          />
+        )}
+      </div>
     </main>
-  )
+  );
 }
 
 export default Jobs;
