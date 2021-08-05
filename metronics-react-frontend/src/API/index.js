@@ -33,9 +33,6 @@ const API = {
   createJob(job) {
     return ky.post(jobUrl, { json: job }).json();
   },
-  findJobByStatus(status) {
-    return ky.get(jobUrl + 'status/' + status);
-  },
   updateJob(job) {
     return ky.put(jobUrl, { json: job }).json();
   },
