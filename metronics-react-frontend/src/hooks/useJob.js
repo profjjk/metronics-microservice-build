@@ -2,10 +2,8 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 
 const fetchJob = async jobId => {
-  const { data } = await axios.get(
-    `http://localhost:8080/api/jobs/${jobId}`
-  );
-  return data;
+  const job = await axios.get(`http://localhost:8080/api/jobs/${jobId}`);
+  return job;
 }
 
 export default function useJob(jobId) {

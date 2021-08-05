@@ -8,12 +8,6 @@ const Home = () => {
   const jobs = useJobs();
   const customers = useCustomers();
   const parts = useParts();
-  console.log("*** JOBS ***");
-  console.log(jobs);
-  console.log("*** CUSTOMERS ***");
-  console.log(customers);
-  console.log("*** PARTS ***");
-  console.log(parts);
 
   switch (jobs.status || parts.status || customers.status) {
     case 'loading':
@@ -26,7 +20,7 @@ const Home = () => {
           <SideNavbar />
           <h1 className="text-center my-5">Data Load Successful</h1>
         </main>
-      )
+      );
   }
 }
 
