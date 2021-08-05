@@ -3,10 +3,8 @@ import { SideNavbar, Searchbar, JobForm, JobsTable } from '../components';
 
 const Jobs = () => {
   const [search, setSearch] = useState('');
-  
   const [showForm, setShowForm] = useState(false);
   const [jobId, setJobId] = useState();
-
 
   return (
     <main>
@@ -31,6 +29,7 @@ const Jobs = () => {
           <JobsTable
             setShowForm={setShowForm}
             setJobId={setJobId}
+            search={search}
           />
         )}
       </div>

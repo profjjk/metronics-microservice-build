@@ -1,16 +1,13 @@
-import { useQuery } from 'react-query';
 import { SideNavbar } from '../components';
+import useJobs from '../hooks/useJobs';
+import useCustomers from '../hooks/useCustomers';
+import useParts from '../hooks/useParts';
 import React from 'react';
-import API from '../API';
-
-const fetchJobs = async () => await API.getAllJobs();
-const fetchCustomers = async () => await API.getAllCustomers();
-const fetchParts = async () => await API.getAllParts();
 
 const Home = () => {
-  const jobs = useQuery('jobs', fetchJobs, { staleTime: 60000 });
-  const customers = useQuery('customers', fetchCustomers, { staleTime: 60000 });
-  const parts = useQuery('parts', fetchParts, { staleTime: 60000 });
+  const jobs = useJobs();
+  const customers = useCustomers();
+  const parts = useParts();
   console.log("*** JOBS ***");
   console.log(jobs);
   console.log("*** CUSTOMERS ***");

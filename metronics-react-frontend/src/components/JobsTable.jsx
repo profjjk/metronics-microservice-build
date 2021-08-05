@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import useJobs from '../hooks/useJobs';
 
-const JobsTable = ({ setShowForm, setJobId }) => {
+const JobsTable = ({ setShowForm, setJobId, search }) => {
   const { status, data, error, isFetching } = useJobs();
-  const [jobSearch, setJobSearch] = useState(data);
+  const [jobSearch, setJobSearch] = useState(data || []);
   const [jobFilter, setJobFilter] = useState(jobSearch);
   const [jobStatus, setJobStatus] = useState('');
+  console.log(data)
 
   useEffect(() => {
     if (jobStatus === 'Waiting') {
@@ -21,20 +22,21 @@ const JobsTable = ({ setShowForm, setJobId }) => {
     }
   }, [jobStatus, jobSearch])
 
-  // useEffect(() => {
-  //   if (jobSearch === '') {
-  //     setJobSearch(data);
-  //     return;
-  //   }
-  //   const searchJobsList = [];
-  //   for (let job of data) {
-  //     let name = job.customer.businessName.toLowerCase(); let invoice = job.invoiceNumber; let date = job.dateCompleted;
-  //     if (name.indexOf(jobSearch) !== -1 || invoice.indexOf(jobSearch) !== -1 || date.indexOf(jobSearch) !== -1) {
-  //       searchJobsList.push(job);
-  //     }
-  //   }
-  //   setJobSearch(searchJobsList);
-  // }, [jobSearch, data]);
+  useEffect(() => {
+    if (search === '') {
+      setJobSearch(data);
+      return;
+    }
+    const searchResults = [];
+    for (let job of data) {
+      let name = job.customer.businessName.toLowerCase(); let invoice = job.invoiceNumber; let date = job.dateCompleted;
+      if (name.indexOf(jobSearch) !== -1 || invoice.indexOf(jobSearch) !== -1 || date.indexOf(jobSearch) !== -1) {
+        searchResults.push(job);
+      }
+    }
+    setJobSearch(searchResults);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, search]);
 
   const selectionHandler = e => {
     e.preventDefault();
@@ -47,11 +49,9 @@ const JobsTable = ({ setShowForm, setJobId }) => {
     setShowForm(true);
   }
 
-  console.log(jobFilter)
-
   return (
     <div className="mt-5">
-      {status === "loading" ? (
+      {/* {status === "loading" ? (
         <h3 className="text-center my-5">Loading...</h3>
       ) : status === "error" ? (
         <h3 className="text-center my-5">Error: {error.message}</h3>
@@ -106,7 +106,7 @@ const JobsTable = ({ setShowForm, setJobId }) => {
           </table>
           <p className="text-center my-5">{isFetching ? "Background updating..." : ""}</p>
         </>
-      )}
+      )} */}
     </div>
   );
 }
