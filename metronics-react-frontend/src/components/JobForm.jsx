@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import useJob from '../hooks/useJob';
 import API from '../API';
@@ -6,38 +6,12 @@ import API from '../API';
 const JobForm = ({ jobId, setShowForm }) => {
   const { status, data, error } = useJob(jobId);
 
-  // Containers to hold job and customer info.
-  const [job, updateJob] = useState(() => {
-    if (status === 'success') {
-      return {
-        id: data.data.id,
-        customerId: data.data.customerId,
-        status: data.data.status,
-        type: data.data.type,
-        dateCompleted: data.data.dateCompleted,
-        invoiceNumber: data.data.invoiceNumber,
-        problemNotes: data.data.problemNotes,
-        repairNotes: data.data.repairNotes,
-      }
-    }
-    return {};
-  });
-  const [customer, updateCustomer] = useState(() => {
-    if (status === 'success') {
-      return {
-        id: data.data.customer.id,
-        businessName: data.data.customer.businessName,
-        contactName: data.data.customer.contactName,
-        phone: data.data.customer.phone,
-        street1: data.data.customer.street1,
-        street2: data.data.customer.street2,
-        city: data.data.customer.city,
-        state: data.data.customer.state,
-        zipcode: data.data.customer.zipcode,
-      }
-    }
-    return {};
-  });
+  // Capture form input for job
+  let jobStatus = useRef(''); let type = useRef(''); let dateCompleted = useRef(''); 
+  let invoiceNumber = useRef(''); let problemNotes = useRef(''); let repairNotes = useRef('');
+  // Capture form input for customer
+  let customerId; let businessName = useRef(''); let contactName = useRef(''); let phone = useRef('');
+  let street1 = useRef(''); let street2 = useRef(''); let city = useRef(''); let state = useRef(''); let zipcode = useRef('');
 
   // Mutations
   const queryClient = useQueryClient();
@@ -45,27 +19,45 @@ const JobForm = ({ jobId, setShowForm }) => {
     onSuccess: () => {
       queryClient.invalidateQueries('jobs')
       queryClient.invalidateQueries(['job', jobId])
-      console.log("Success!")
+      console.log("Job updated!")
     }
   });
+  const editCustomer = useMutation(customer => API.updateCustomer(customer), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('customers')
+      queryClient.invalidateQueries(['customer', customerId])
+      console.log("Customer updated!")
+    }
+  })
 
   // Handlers
   const handleSubmit = async e => {
     e.preventDefault();
-    await editJob.mutate(Object.fromEntries(new FormData(e.target)))
+    const updatedJob = {
+      id: jobId, 
+      customerId: customerId, 
+      status: jobStatus.current.value, 
+      type: type.current.value, 
+      dateCompleted: dateCompleted.current.value, 
+      invoiceNumber: invoiceNumber.current.value, 
+      problemNotes: problemNotes.current.value, 
+      repairNotes: repairNotes.current.value
+    }
+    const updatedCustomer = {
+      id: customerId, 
+      businessName: businessName.current.value, 
+      contactName: contactName.current.value, 
+      phone: phone.current.value, 
+      street1: street1.current.value, 
+      street2: street2.current.value,
+      city: city.current.value, 
+      state: state.current.value, 
+      zipcode: zipcode.current.value
+    }
+    console.log(updatedJob);
+    await editJob.mutate(updatedJob);
+    await editCustomer.mutate(updatedCustomer)
     setShowForm(false);
-  };
-  const handleJobChange = e => {
-    updateJob({
-      ...job,
-      [e.target.name]: e.target.value,
-    });
-  };
-  const handleCustomerChange = e => {
-    updateCustomer({
-      ...customer,
-      [e.target.name]: e.target.value,
-    });
   };
 
   switch (status) {
@@ -74,6 +66,8 @@ const JobForm = ({ jobId, setShowForm }) => {
     case "error":
       return <h4 className="text-center my-5">Error: {error.message}</h4>;
     default:
+      customerId = data.data.customerId
+
       return (
         <>
           <form className="p-5" onSubmit={handleSubmit}>
@@ -84,7 +78,7 @@ const JobForm = ({ jobId, setShowForm }) => {
                 <select
                   className="form-select"
                   name="status"
-                  onChange={handleJobChange}
+                  ref={jobStatus}
                 >
                   <option>{data.data.status}</option>
                   {data.data.status === "waiting" ? "" : <option>waiting</option>}
@@ -106,7 +100,7 @@ const JobForm = ({ jobId, setShowForm }) => {
                 <select
                   className="form-select"
                   name="type"
-                  onChange={handleJobChange}
+                  ref={type}
                 >
                   <option>{data.data.type}</option>
                   {data.data.type === "maintenance" ? (
@@ -126,7 +120,7 @@ const JobForm = ({ jobId, setShowForm }) => {
                   className="form-control"
                   name="dateCompleted"
                   defaultValue={data.data.dateCompleted || ""}
-                  onChange={handleJobChange}
+                  ref={dateCompleted}
                 />
               </div>
               <div className="px-3">
@@ -136,7 +130,7 @@ const JobForm = ({ jobId, setShowForm }) => {
                   className="form-control"
                   name="invoiceNumber"
                   defaultValue={data.data.invoiceNumber || ""}
-                  onChange={handleJobChange}
+                  ref={invoiceNumber}
                 />
               </div>
             </div>
@@ -150,7 +144,7 @@ const JobForm = ({ jobId, setShowForm }) => {
                   name="businessName"
                   placeholder={"business name"}
                   defaultValue={data.data.customer.businessName || ""}
-                  onChange={handleCustomerChange}
+                  ref={businessName}
                 />
                 <input
                   type="text"
@@ -158,7 +152,7 @@ const JobForm = ({ jobId, setShowForm }) => {
                   name="contactName"
                   placeholder={"contact name"}
                   defaultValue={data.data.customer.contactName || ""}
-                  onChange={handleCustomerChange}
+                  ref={contactName}
                 />
                 <input
                   type="text"
@@ -166,7 +160,7 @@ const JobForm = ({ jobId, setShowForm }) => {
                   name="phone"
                   placeholder={"phone #"}
                   defaultValue={data.data.customer.phone || ""}
-                  onChange={handleCustomerChange}
+                  ref={phone}
                 />
               </div>
               <div className="px-3">
@@ -177,7 +171,7 @@ const JobForm = ({ jobId, setShowForm }) => {
                   name="street1"
                   placeholder={"street 1"}
                   defaultValue={data.data.customer.street1 || ""}
-                  onChange={handleCustomerChange}
+                  ref={street1}
                 />
                 <input
                   type="text"
@@ -185,7 +179,7 @@ const JobForm = ({ jobId, setShowForm }) => {
                   name="street2"
                   placeholder={"street 2"}
                   defaultValue={data.data.customer.street2 || ""}
-                  onChange={handleCustomerChange}
+                  ref={street2}
                 />
                 <div id="address">
                   <input
@@ -194,7 +188,7 @@ const JobForm = ({ jobId, setShowForm }) => {
                     name="city"
                     placeholder={"city"}
                     defaultValue={data.data.customer.city || ""}
-                    onChange={handleCustomerChange}
+                    ref={city}
                   />
                   <input
                     type="text"
@@ -202,7 +196,7 @@ const JobForm = ({ jobId, setShowForm }) => {
                     name="state"
                     placeholder={"state"}
                     defaultValue={data.data.customer.state || ""}
-                    onChange={handleCustomerChange}
+                    ref={state}
                   />
                   <input
                     type="text"
@@ -210,7 +204,7 @@ const JobForm = ({ jobId, setShowForm }) => {
                     name="zipcode"
                     placeholder={"zip code"}
                     defaultValue={data.data.customer.zipcode || ""}
-                    onChange={handleCustomerChange}
+                    ref={zipcode}
                   />
                 </div>
               </div>
@@ -222,14 +216,14 @@ const JobForm = ({ jobId, setShowForm }) => {
                 className="form-control"
                 name="problemNotes"
                 defaultValue={data.data.problemNotes || ""}
-                onChange={handleJobChange}
+                ref={problemNotes}
               ></textarea>
               <h6 className="mt-3">Repair Notes</h6>
               <textarea
                 className="form-control"
                 name="repairNotes"
                 defaultValue={data.data.repairNotes || ""}
-                onChange={handleJobChange}
+                ref={repairNotes}
               ></textarea>
             </div>
 

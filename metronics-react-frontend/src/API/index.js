@@ -16,8 +16,8 @@ const API = {
   createCustomer(customer) {
     return ky.post(customerUrl, { json: customer }).json();
   },
-  updateCustomer(customer, id) {
-    return ky.put(customerUrl + id, { json: customer }).json();
+  updateCustomer(customer) {
+    return ky.put(customerUrl, { json: customer }).json();
   },
   deleteCustomer(customer, id) {
     return ky.delete(customerUrl + id, { json: customer }).json();
