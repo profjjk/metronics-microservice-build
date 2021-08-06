@@ -25,3 +25,31 @@ nav li {
   list-style: none;
   text-decortation: none;
 }
+
+/* Job Form */
+#dropdown-area {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+#customer-area {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+#address {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  column-gap: 5px;
+}
+#parts-area {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10px;
+}
+#parts-area .part-form {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  column-gap: 5px;
+}
+.form-btn {
+  width: 100px;
+}

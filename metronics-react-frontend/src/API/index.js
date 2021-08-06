@@ -1,8 +1,8 @@
 import ky from 'ky';
 
-const customerUrl = 'http://localhost:8080/api/customers/';
-const jobUrl = 'http://localhost:8080/api/jobs/';
-const partUrl = 'http://localhost:8080/api/parts/';
+const customerUrl = 'http://localhost:5557/api/customers/';
+const jobUrl = 'http://localhost:5557/api/jobs/';
+const partUrl = 'http://localhost:5557/api/parts/';
 
 
 const API = {
@@ -16,8 +16,8 @@ const API = {
   createCustomer(customer) {
     return ky.post(customerUrl, { json: customer }).json();
   },
-  updateCustomer(customer, id) {
-    return ky.put(customerUrl + id, { json: customer }).json();
+  updateCustomer(customer) {
+    return ky.put(customerUrl, { json: customer }).json();
   },
   deleteCustomer(customer, id) {
     return ky.delete(customerUrl + id, { json: customer }).json();

@@ -17,7 +17,7 @@ const JobsTable = ({ setShowForm, setJobId, searchTerm, jobs }) => {
     } else {
       setJobList(jobs);
     }
-  }, [jobStatus]);
+  }, [jobStatus, jobs]);
 
   // Search for jobs
   useEffect(() => {
@@ -36,7 +36,7 @@ const JobsTable = ({ setShowForm, setJobId, searchTerm, jobs }) => {
         return false;
       }
     }))
-  }, [searchTerm]);
+  }, [searchTerm, jobs]);
 
   // Handlers
   const selectionHandler = (e) => {
