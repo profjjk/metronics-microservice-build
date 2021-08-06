@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 const JobsTable = ({ setShowForm, setJobId, searchTerm, jobs }) => {
   const [jobList, setJobList] = useState(jobs)
   const [jobStatus, setJobStatus] = useState("");
+  console.log(jobs)
 
   // Filter by status
   useEffect(() => {

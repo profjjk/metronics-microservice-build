@@ -1,59 +1,67 @@
-import { useEffect, useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 import useJob from '../hooks/useJob';
 import API from '../API';
 
 const JobForm = ({ jobId, setShowForm }) => {
-  const { status, data, error, isFetching } = useJob(jobId);
-  console.log(data);
+  const { status, data, error } = useJob(jobId);
 
-  // Create empty job object in state.
-  const [job, updateJob] = useState({
-    id: "",
-    customerId: "",
-    status: "",
-    type: "",
-    dateCompleted: "",
-    invoiceNumber: "",
-    problemNotes: "",
-    repairNotes: "",
+  // Containers to hold job and customer info.
+  const [job, updateJob] = useState(() => {
+    if (status === 'success') {
+      return {
+        id: data.data.id,
+        customerId: data.data.customerId,
+        status: data.data.status,
+        type: data.data.type,
+        dateCompleted: data.data.dateCompleted,
+        invoiceNumber: data.data.invoiceNumber,
+        problemNotes: data.data.problemNotes,
+        repairNotes: data.data.repairNotes,
+      }
+    }
+    return {};
   });
-  // Create empty customer object in state.
-  const [customer, updateCustomer] = useState({
-    id: "",
-    businessName: "",
-    contactName: "",
-    phone: "",
-    street: "",
-    city: "",
-    state: "",
-    zipcode: "",
+  const [customer, updateCustomer] = useState(() => {
+    if (status === 'success') {
+      return {
+        id: data.data.customer.id,
+        businessName: data.data.customer.businessName,
+        contactName: data.data.customer.contactName,
+        phone: data.data.customer.phone,
+        street1: data.data.customer.street1,
+        street2: data.data.customer.street2,
+        city: data.data.customer.city,
+        state: data.data.customer.state,
+        zipcode: data.data.customer.zipcode,
+      }
+    }
+    return {};
   });
 
+  // Mutations
   const queryClient = useQueryClient();
-  const addJob = useMutation((job) => API.createJob(job));
+  const editJob = useMutation(job => API.updateJob(job), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('jobs')
+      queryClient.invalidateQueries(['job', jobId])
+      console.log("Success!")
+    }
+  });
 
-  const handleSubmit = (e) => {
+  // Handlers
+  const handleSubmit = async e => {
     e.preventDefault();
-    // addJob.mutate(Object.fromEntries(new FormData(e.target)), {
-    //   onSuccess: () => {
-    //     queryClient.invalidateQueries('jobs');
-    //     console.log("Success!")
-    //   }
-    // })
-    console.log(job, customer);
+    await editJob.mutate(Object.fromEntries(new FormData(e.target)))
     setShowForm(false);
   };
-
-  // Update job object with user input.
-  const handleJobChange = (e) => {
+  const handleJobChange = e => {
     updateJob({
       ...job,
       [e.target.name]: e.target.value,
     });
   };
-  // Update customer object with user input.
-  const handleCustomerChange = (e) => {
+  const handleCustomerChange = e => {
     updateCustomer({
       ...customer,
       [e.target.name]: e.target.value,
@@ -64,12 +72,12 @@ const JobForm = ({ jobId, setShowForm }) => {
     case "loading":
       return <h4 className="text-center my-5">Loading</h4>;
     case "error":
-      return <h4 className="text-center my-5">{error.message}</h4>;
+      return <h4 className="text-center my-5">Error: {error.message}</h4>;
     default:
       return (
         <>
-          {/* <form className="p-5" onSubmit={handleSubmit}>
-            <h1 className="text-primary text-center mb-5">Service job Form</h1>
+          <form className="p-5" onSubmit={handleSubmit}>
+            <h1 className="text-primary text-center mb-5">Service Job Form</h1>
             <div id="dropdown-area" className="my-3">
               <div className="px-3">
                 <h6>Status</h6>
@@ -78,19 +86,19 @@ const JobForm = ({ jobId, setShowForm }) => {
                   name="status"
                   onChange={handleJobChange}
                 >
-                  <option>{data.status}</option>
-                  {data.status === "waiting" ? "" : <option>waiting</option>}
-                  {data.status === "scheduled" ? (
+                  <option>{data.data.status}</option>
+                  {data.data.status === "waiting" ? "" : <option>waiting</option>}
+                  {data.data.status === "scheduled" ? (
                     ""
                   ) : (
                     <option>scheduled</option>
                   )}
-                  {data.status === "completed" ? (
+                  {data.data.status === "completed" ? (
                     ""
                   ) : (
                     <option>completed</option>
                   )}
-                  {data.status === "canceled" ? "" : <option>canceled</option>}
+                  {data.data.status === "canceled" ? "" : <option>canceled</option>}
                 </select>
               </div>
               <div className="px-3">
@@ -100,15 +108,15 @@ const JobForm = ({ jobId, setShowForm }) => {
                   name="type"
                   onChange={handleJobChange}
                 >
-                  <option>{data.type}</option>
-                  {data.type === "maintenance" ? (
+                  <option>{data.data.type}</option>
+                  {data.data.type === "maintenance" ? (
                     ""
                   ) : (
                     <option>maintenance</option>
                   )}
-                  {data.type === "repair" ? "" : <option>repair</option>}
-                  {data.type === "callback" ? "" : <option>callback</option>}
-                  {data.type === "training" ? "" : <option>training</option>}
+                  {data.data.type === "repair" ? "" : <option>repair</option>}
+                  {data.data.type === "callback" ? "" : <option>callback</option>}
+                  {data.data.type === "training" ? "" : <option>training</option>}
                 </select>
               </div>
               <div className="px-3">
@@ -117,7 +125,7 @@ const JobForm = ({ jobId, setShowForm }) => {
                   type="text"
                   className="form-control"
                   name="dateCompleted"
-                  placeholder={data.dateCompleted}
+                  defaultValue={data.data.dateCompleted || ""}
                   onChange={handleJobChange}
                 />
               </div>
@@ -127,7 +135,7 @@ const JobForm = ({ jobId, setShowForm }) => {
                   type="text"
                   className="form-control"
                   name="invoiceNumber"
-                  placeholder={data.invoiceNumber}
+                  defaultValue={data.data.invoiceNumber || ""}
                   onChange={handleJobChange}
                 />
               </div>
@@ -137,50 +145,71 @@ const JobForm = ({ jobId, setShowForm }) => {
               <div className="px-3">
                 <h6>Contact Information</h6>
                 <input
+                  type="text"
                   className="form-control"
-                  placeholder={data.customer.businessName}
                   name="businessName"
+                  placeholder={"business name"}
+                  defaultValue={data.data.customer.businessName || ""}
                   onChange={handleCustomerChange}
                 />
                 <input
+                  type="text"
                   className="form-control my-2"
-                  placeholder={data.customer.contactName}
                   name="contactName"
+                  placeholder={"contact name"}
+                  defaultValue={data.data.customer.contactName || ""}
                   onChange={handleCustomerChange}
                 />
                 <input
+                  type="text"
                   className="form-control"
-                  placeholder={data.customer.phone}
                   name="phone"
+                  placeholder={"phone #"}
+                  defaultValue={data.data.customer.phone || ""}
                   onChange={handleCustomerChange}
                 />
               </div>
               <div className="px-3">
                 <h6>Address</h6>
                 <input
+                  type="text"
                   className="form-control"
-                  placeholder={data.customer.street}
-                  name="street"
+                  name="street1"
+                  placeholder={"street 1"}
+                  defaultValue={data.data.customer.street1 || ""}
                   onChange={handleCustomerChange}
                 />
-                <input className="form-control my-2" />
+                <input
+                  type="text"
+                  className="form-control my-2"
+                  name="street2"
+                  placeholder={"street 2"}
+                  defaultValue={data.data.customer.street2 || ""}
+                  onChange={handleCustomerChange}
+                />
                 <div id="address">
                   <input
+                    type="text"
                     className="form-control"
-                    placeholder={data.customer.city}
                     name="city"
+                    placeholder={"city"}
+                    defaultValue={data.data.customer.city || ""}
                     onChange={handleCustomerChange}
                   />
                   <input
+                    type="text"
                     className="form-control"
-                    placeholder={data.customer.state}
                     name="state"
+                    placeholder={"state"}
+                    defaultValue={data.data.customer.state || ""}
                     onChange={handleCustomerChange}
                   />
                   <input
+                    type="text"
                     className="form-control"
-                    placeholder={data.customer.zipcode}
                     name="zipcode"
+                    placeholder={"zip code"}
+                    defaultValue={data.data.customer.zipcode || ""}
                     onChange={handleCustomerChange}
                   />
                 </div>
@@ -192,14 +221,14 @@ const JobForm = ({ jobId, setShowForm }) => {
               <textarea
                 className="form-control"
                 name="problemNotes"
-                placeholder={data.problemNotes}
+                defaultValue={data.data.problemNotes || ""}
                 onChange={handleJobChange}
               ></textarea>
               <h6 className="mt-3">Repair Notes</h6>
               <textarea
                 className="form-control"
                 name="repairNotes"
-                placeholder={data.repairNotes}
+                defaultValue={data.data.repairNotes || ""}
                 onChange={handleJobChange}
               ></textarea>
             </div>
@@ -208,11 +237,14 @@ const JobForm = ({ jobId, setShowForm }) => {
               <button className="btn btn-primary me-3 form-btn" type="submit">
                 Save
               </button>
-              <button className="btn btn-danger form-btn">Cancel</button>
+              <button className="btn btn-danger form-btn"
+                onClick={() => setShowForm(false)}
+                >Cancel
+              </button>
             </div>
           </form>
 
-          <div id="parts-area" className="mt-5 p-5">
+          {/* <div id="parts-area" className="mt-5 p-5">
               <div>
                 <h6 className="px-3">Add any parts that you used:</h6>
                 <div className="part-form px-3">
