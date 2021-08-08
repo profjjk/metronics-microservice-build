@@ -1,9 +1,9 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import useJob from '../hooks/useJob';
-import API from '../API';
+import useJob from '../../hooks/useJob';
+import API from '../../API';
 
-const JobForm = ({ jobId, setShowForm }) => {
+const JobFormUpdate = ({ jobId, setJobId, setShowFormUpdate }) => {
   const { status, data, error } = useJob(jobId);
 
   // Capture form input for job
@@ -33,7 +33,7 @@ const JobForm = ({ jobId, setShowForm }) => {
   // Handlers
   const handleSubmit = async e => {
     e.preventDefault();
-    const updatedJob = {
+    const jobInfo = {
       id: jobId, 
       customerId: customerId, 
       status: jobStatus.current.value, 
@@ -43,7 +43,7 @@ const JobForm = ({ jobId, setShowForm }) => {
       problemNotes: problemNotes.current.value, 
       repairNotes: repairNotes.current.value
     }
-    const updatedCustomer = {
+    const customerInfo = {
       id: customerId, 
       businessName: businessName.current.value, 
       contactName: contactName.current.value, 
@@ -54,10 +54,11 @@ const JobForm = ({ jobId, setShowForm }) => {
       state: state.current.value, 
       zipcode: zipcode.current.value
     }
-    console.log(updatedJob);
-    await editJob.mutate(updatedJob);
-    await editCustomer.mutate(updatedCustomer)
-    setShowForm(false);
+    console.log(jobInfo);
+    await editJob.mutate(jobInfo);
+    await editCustomer.mutate(customerInfo)
+    setJobId('');
+    setShowFormUpdate(false);
   };
 
   switch (status) {
@@ -75,39 +76,19 @@ const JobForm = ({ jobId, setShowForm }) => {
             <div id="dropdown-area" className="my-3">
               <div className="px-3">
                 <h6>Status</h6>
-                <select
-                  className="form-select"
-                  name="status"
-                  ref={jobStatus}
-                >
+                <select className="form-select" name="status" ref={jobStatus}>
                   <option>{data.data.status}</option>
                   {data.data.status === "waiting" ? "" : <option>waiting</option>}
-                  {data.data.status === "scheduled" ? (
-                    ""
-                  ) : (
-                    <option>scheduled</option>
-                  )}
-                  {data.data.status === "completed" ? (
-                    ""
-                  ) : (
-                    <option>completed</option>
-                  )}
+                  {data.data.status === "scheduled" ? "" : <option>scheduled</option>}
+                  {data.data.status === "completed" ? "" : <option>completed</option>}
                   {data.data.status === "canceled" ? "" : <option>canceled</option>}
                 </select>
               </div>
               <div className="px-3">
                 <h6>Type</h6>
-                <select
-                  className="form-select"
-                  name="type"
-                  ref={type}
-                >
+                <select className="form-select" name="type" ref={type}>
                   <option>{data.data.type}</option>
-                  {data.data.type === "maintenance" ? (
-                    ""
-                  ) : (
-                    <option>maintenance</option>
-                  )}
+                  {data.data.type === "maintenance" ? "" : <option>maintenance</option>}
                   {data.data.type === "repair" ? "" : <option>repair</option>}
                   {data.data.type === "callback" ? "" : <option>callback</option>}
                   {data.data.type === "training" ? "" : <option>training</option>}
@@ -232,7 +213,7 @@ const JobForm = ({ jobId, setShowForm }) => {
                 Save
               </button>
               <button className="btn btn-danger form-btn"
-                onClick={() => setShowForm(false)}
+                onClick={() => setShowFormUpdate(false)}
                 >Cancel
               </button>
             </div>
@@ -274,4 +255,4 @@ const JobForm = ({ jobId, setShowForm }) => {
   }
 }
 
-export default JobForm;
+export default JobFormUpdate;

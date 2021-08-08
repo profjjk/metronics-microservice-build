@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import API from '../../API';
 
-const JobsTable = ({ setShowForm, setJobId, searchTerm, jobs }) => {
+const JobsTable = ({ setShowFormUpdate, setJobId, searchTerm, jobs }) => {
   const [jobList, setJobList] = useState(jobs)
   const [jobStatus, setJobStatus] = useState("");
 
@@ -38,16 +40,29 @@ const JobsTable = ({ setShowForm, setJobId, searchTerm, jobs }) => {
     }))
   }, [searchTerm, jobs]);
 
+  // Mutations
+  const queryClient = useQueryClient();
+  const deleteJob = useMutation(id => API.deleteJob(id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('jobs')
+      console.log("Job deleted!")
+    }
+  })
+
   // Handlers
-  const selectionHandler = (e) => {
+  const selectionHandler = e => {
     e.preventDefault();
     setJobStatus(e.target.value);
   };
-  const clickHandler = (e) => {
+  const viewHandler = e => {
     e.preventDefault();
     setJobId(parseInt(e.target.dataset.id));
-    setShowForm(true);
+    setShowFormUpdate(true);
   };
+  const deleteHandler = async e => {
+    e.preventDefault();
+    await deleteJob.mutate(parseInt(e.target.dataset.id))
+  }
 
   return (
     <div className="mt-5">
@@ -90,8 +105,14 @@ const JobsTable = ({ setShowForm, setJobId, searchTerm, jobs }) => {
                 <button
                   className="btn btn-primary"
                   data-id={job.id}
-                  onClick={clickHandler}
+                  onClick={viewHandler}
                   >view
+                </button>
+                <button
+                  className="btn btn-danger"
+                  data-id={job.id}
+                  onClick={deleteHandler}
+                  >X
                 </button>
               </td>
             </tr>

@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import useJobs from '../hooks/useJobs';
-import { SideNavbar, Searchbar, JobForm, JobsTable } from '../components';
+import { SideNavbar, Searchbar, JobFormUpdate, JobsTable, JobFormNew } from '../components';
 
 const Jobs = () => {
   const { status, data, error, isFetching } = useJobs();
   const [searchTerm, setSearchTerm] = useState('');
-  const [showForm, setShowForm] = useState(false);
+  const [customerSearchTerm, setCustomerSearchTerm] = useState('');
+  const [showFormUpdate, setShowFormUpdate] = useState(false);
+  const [showFormNew, setShowFormNew] = useState(false);
   const [jobId, setJobId] = useState();
 
   switch (status) {
@@ -18,7 +20,7 @@ const Jobs = () => {
         <main>
           <SideNavbar />
           <div className="p-5">
-            {showForm ? (
+            {showFormUpdate || showFormNew ? (
               ""
             ) : (
               <Searchbar
@@ -28,20 +30,39 @@ const Jobs = () => {
                 setSearch={setSearchTerm}
               />
             )}
-            {showForm ? (
-              <JobForm 
-                setShowForm={setShowForm} 
-                jobId={jobId} 
-              />
-            ) : (
+            {!showFormUpdate && !showFormNew ? (
+              <button
+                className="btn btn-success me-3 mt-5"
+                onClick={() => setShowFormNew(true)}
+                >Create New Service Job
+              </button>
+            ) : ( "" )}
+            {!showFormUpdate && !showFormNew ? (
               <JobsTable
-                setShowForm={setShowForm}
+                setShowFormUpdate={setShowFormUpdate}
                 setJobId={setJobId}
                 searchTerm={searchTerm}
                 jobs={data.data}
               />
-            )}
-            {isFetching ? <p className="text-center my-5">Getting information from database...</p> : ""}
+            ) : ( "" )}
+            {showFormNew ? (
+              <JobFormNew 
+                setShowFormNew={setShowFormNew} 
+                customerSearchTerm={customerSearchTerm}
+              />
+            ) : ( "" )}
+            {showFormUpdate ? (
+              <JobFormUpdate
+                setShowFormUpdate={setShowFormUpdate}
+                setJobId={setJobId}
+                jobId={jobId}
+              />
+            ) : ( "" )}
+            {isFetching ? (
+              <p className="text-center my-5">
+                Getting information from database...
+              </p>
+            ) : ( "" )}
           </div>
         </main>
       );
