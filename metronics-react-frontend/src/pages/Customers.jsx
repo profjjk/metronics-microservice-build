@@ -76,3 +76,7 @@ const Customers = () => {
 }
 
 export default Customers;
+
+/** ISSUES
+ * Won't automatically refresh data in CustomerJobsTable after making an edit in CustomerJobsEdit despite invalidating query...?
+ */

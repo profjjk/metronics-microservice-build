@@ -1,26 +1,31 @@
 import { useMutation, useQueryClient } from 'react-query';
 import useJobs from '../../hooks/useJobs';
 import API from '../../API';
+import { useEffect, useState } from 'react';
 
-const CustomerJobsTable = ({ customerId }) => {
+const CustomerJobsTable = ({ customerId, setShowTable, setJobId }) => {
   const { status, data, error } = useJobs();
 
   // Mutations
   const queryClient = useQueryClient();
-  const deleteJob = useMutation((id) => API.deleteJob(id), {
+  const deleteJob = useMutation(id => API.deleteJob(id), {
     onSuccess: () => {
       queryClient.invalidateQueries("jobs");
       console.log("Job deleted!");
     },
   });
 
-  // Handlers
-  const viewHandler = (e) => {
+  useEffect(() => {
+    queryClient.invalidateQueries("jobs");
+  }, [setShowTable])
+
+  // Event Handlers
+  const viewHandler = e => {
     e.preventDefault();
-    // setJobId(parseInt(e.target.dataset.id));
-    // setShowFormUpdate(true);
+    setJobId(parseInt(e.target.dataset.id));
+    setShowTable(false);
   };
-  const deleteHandler = async (e) => {
+  const deleteHandler = async e => {
     e.preventDefault();
     await deleteJob.mutate(parseInt(e.target.dataset.id));
   };

@@ -1,11 +1,15 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import API from '../../API';
 import CustomerJobsTable from "./CustomerJobsTable";
+import CustomerJobEdit from "./CustomerJobEdit";
 import useCustomer from '../../hooks/useCustomer';
 
 const CustomerFormUpdate = ({ setShowFormUpdate, customerId }) => {
   const { status, data, error } = useCustomer(customerId);
+  const [showTable, setShowTable] = useState(true);
+  const [jobId, setJobId] = useState();
+
   // Capture form input for customer
   let businessName = useRef(''); let contactName = useRef(''); let phone = useRef('');
   let street1 = useRef(''); let street2 = useRef(''); let city = useRef(''); let state = useRef(''); let zipcode = useRef('');
@@ -135,7 +139,19 @@ const CustomerFormUpdate = ({ setShowFormUpdate, customerId }) => {
               </button>
             </div>
           </form>
-          <CustomerJobsTable customerId={customerId} />
+          {showTable ? (
+            <CustomerJobsTable 
+              customerId={customerId}
+              setShowTable={setShowTable} 
+              setJobId={setJobId}
+            />
+          ) : ( 
+            <CustomerJobEdit 
+              jobId={jobId}
+              setShowTable={setShowTable}
+              customerId={customerId}
+            />
+          )}
         </>
       );
   }

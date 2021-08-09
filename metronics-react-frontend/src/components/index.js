@@ -7,3 +7,4 @@ export { default as AutoCompleteSearch } from './job/AutoCompleteSearch';
 export { default as CustomerTable } from './customer/CustomerTable';
 export { default as CustomerFormNew } from './customer/CustomerFormNew';
 export { default as CustomerFormUpdate } from './customer/CustomerFormUpdate';
+export { default as CustomerJobsTable } from './customer/CustomerJobsTable';
