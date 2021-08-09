@@ -38,16 +38,6 @@ public class JobServiceLayer {
         return returnList;
     }
 
-    public List<JobViewModel> findByStatus(String status) {
-        List<JobViewModel> returnList = new ArrayList<>();
-        List<Job> jobList = jobServiceClient.findByStatus(status);
-
-        for (Job currentElement : jobList) {
-            returnList.add(buildJobViewModel(currentElement));
-        }
-        return returnList;
-    }
-
     public JobViewModel buildJobViewModel(Job job){
         JobViewModel newJobViewModel = new JobViewModel();
 

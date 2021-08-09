@@ -19,8 +19,8 @@ const API = {
   updateCustomer(customer) {
     return ky.put(customerUrl, { json: customer }).json();
   },
-  deleteCustomer(customer, id) {
-    return ky.delete(customerUrl + id, { json: customer }).json();
+  deleteCustomer(id) {
+    return ky.delete(customerUrl + id);
   },
 
   // Jobs

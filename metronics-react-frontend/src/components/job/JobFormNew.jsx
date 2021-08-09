@@ -241,7 +241,3 @@ const JobFormNew = ({ setShowFormNew }) => {
 }
 
 export default JobFormNew;
-
-/**
- * for some reason, when I create a new job with a new customer... the new customoer info posts properly, but the new job info shows as null.
- */

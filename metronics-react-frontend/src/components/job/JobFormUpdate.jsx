@@ -54,7 +54,6 @@ const JobFormUpdate = ({ jobId, setJobId, setShowFormUpdate }) => {
       state: state.current.value, 
       zipcode: zipcode.current.value
     }
-    console.log(jobInfo);
     await editJob.mutate(jobInfo);
     await editCustomer.mutate(customerInfo)
     setJobId('');

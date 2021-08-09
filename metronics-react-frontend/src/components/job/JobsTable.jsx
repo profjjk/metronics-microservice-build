@@ -109,7 +109,7 @@ const JobsTable = ({ setShowFormUpdate, setJobId, searchTerm, jobs }) => {
                   >view
                 </button>
                 <button
-                  className="btn btn-danger"
+                  className="btn btn-danger ms-4"
                   data-id={job.id}
                   onClick={deleteHandler}
                   >X

@@ -4,3 +4,4 @@ export { default as JobsTable } from './job/JobsTable';
 export { default as JobFormUpdate } from './job/JobFormUpdate';
 export { default as JobFormNew } from './job/JobFormNew';
 export { default as AutoCompleteSearch } from './job/AutoCompleteSearch';
+export { default as CustomerTable } from './customer/CustomerTable';

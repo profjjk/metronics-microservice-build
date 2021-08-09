@@ -32,19 +32,11 @@ public class JobController {
     @GetMapping
     public List<JobViewModel> getAllJobs(){
         return jobServiceLayer.getAllJobs();
-//        return jobServiceClient.getAllJobs();
     }
 
     @GetMapping("/{id}")
     public JobViewModel getJobById(@PathVariable int id){
         return jobServiceLayer.getJobById(id);
-//        return jobServiceClient.getJobById(id);
-    }
-
-    @GetMapping("/status/{status}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<JobViewModel> getJobById(@PathVariable String status) {
-        return jobServiceLayer.findByStatus(status);
     }
 
     @PutMapping
