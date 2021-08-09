@@ -1,4 +1,4 @@
-package com.trilogyed.eurekaserviceregistry;
+package com.metronics.eurekaserviceregistry;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
