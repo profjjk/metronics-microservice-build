@@ -102,18 +102,20 @@ const JobsTable = ({ setShowFormUpdate, setJobId, searchTerm, jobs }) => {
               <td>{job.type}</td>
               <td>{job.status}</td>
               <td>
-                <button
-                  className="btn btn-warning"
-                  data-id={job.id}
-                  onClick={viewHandler}
-                  >view
-                </button>
-                <button
-                  className="btn btn-danger ms-4"
-                  data-id={job.id}
-                  onClick={deleteHandler}
-                  >X
-                </button>
+                <div className="float-end">
+                  <button
+                    className="btn btn-warning"
+                    data-id={job.id}
+                    onClick={viewHandler}
+                    >view
+                  </button>
+                  <button
+                    className="btn btn-danger ms-4"
+                    data-id={job.id}
+                    onClick={deleteHandler}
+                    >X
+                  </button>
+                </div>
               </td>
             </tr>
           ))}

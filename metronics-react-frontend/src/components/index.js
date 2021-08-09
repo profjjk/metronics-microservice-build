@@ -8,3 +8,4 @@ export { default as CustomerTable } from './customer/CustomerTable';
 export { default as CustomerFormNew } from './customer/CustomerFormNew';
 export { default as CustomerFormUpdate } from './customer/CustomerFormUpdate';
 export { default as CustomerJobsTable } from './customer/CustomerJobsTable';
+export { default as PartsTable } from './part/PartsTable';

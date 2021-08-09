@@ -71,20 +71,22 @@ const CustomerTable = ({ setShowFormUpdate, setCustomerId, searchTerm, customers
               </td>
               <td>{customer.contactName}</td>
               <td>
-                <button
-                  className="btn btn-warning"
-                  data-id={customer.id}
-                  onClick={viewHandler}
-                >
-                  view
-                </button>
-                <button
-                  className="btn btn-danger ms-4"
-                  data-id={customer.id}
-                  onClick={deleteHandler}
-                >
-                  X
-                </button>
+                <div className="float-end">
+                  <button
+                    className="btn btn-warning"
+                    data-id={customer.id}
+                    onClick={viewHandler}
+                  >
+                    view
+                  </button>
+                  <button
+                    className="btn btn-danger ms-4"
+                    data-id={customer.id}
+                    onClick={deleteHandler}
+                  >
+                    X
+                  </button>
+                </div>
               </td>
             </tr>
           ))}

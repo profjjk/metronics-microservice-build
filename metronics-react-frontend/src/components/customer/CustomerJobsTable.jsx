@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from 'react-query';
 import useJobs from '../../hooks/useJobs';
 import API from '../../API';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const CustomerJobsTable = ({ customerId, setShowTable, setJobId }) => {
   const { status, data, error } = useJobs();
