@@ -1,12 +1,13 @@
-import { useQueryClient } from 'react-query';
 import { useState } from 'react';
 import useCustomers from '../hooks/useCustomers';
-import { SideNavbar, Searchbar, CustomerTable } from '../components';
+import { SideNavbar, Searchbar, CustomerTable, CustomerFormNew, CustomerFormUpdate } from '../components';
 
 const Customers = () => {
   const { status, data, error, isFetching } = useCustomers();
   const [searchTerm, setSearchTerm] = useState('');
-  const [showNewCustomerForm, setShowNewCustomerForm] = useState(false);
+  const [customerId, setCustomerId] = useState();
+  const [showFormUpdate, setShowFormUpdate] = useState(false);
+  const [showFormNew, setShowFormNew] = useState(false);
 
   switch (status) {
     case "loading":
@@ -18,21 +19,44 @@ const Customers = () => {
         <main>
           <div className="p-5">
             <SideNavbar />
-            {showNewCustomerForm ? (
+            {showFormUpdate || showFormNew ? (
               ""
             ) : (
               <Searchbar
                 heading="Customer Search"
-                subheading="Search by business name"
-                placeholder="Business Name"
+                subheading="Search by business name, city name, or phone #"
+                placeholder="Business Name, city name, or phone #"
                 setSearch={setSearchTerm}
               />
             )}
-            {!showNewCustomerForm ? (
+            {!showFormUpdate && !showFormNew ? (
+              <button
+                className="btn btn-success me-3 mt-5"
+                onClick={() => setShowFormNew(true)}
+              >
+                Create New Customer
+              </button>
+            ) : (
+              ""
+            )}
+            {showFormUpdate ? (
+              <CustomerFormUpdate 
+                setShowFormUpdate={setShowFormUpdate} 
+                customerId={customerId}
+              />
+            ) : (
+              ""
+            )}
+            {showFormNew ? (
+              <CustomerFormNew setShowFormNew={setShowFormNew} />
+            ) : (
+              ""
+            )}
+            {!showFormUpdate && !showFormNew ? (
               <CustomerTable
-                // setShowFormUpdate={setShowFormUpdate}
-                // setJobId={setJobId}
-                // searchTerm={searchTerm}
+                setShowFormUpdate={setShowFormUpdate}
+                setCustomerId={setCustomerId}
+                searchTerm={searchTerm}
                 customers={data.data}
               />
             ) : (

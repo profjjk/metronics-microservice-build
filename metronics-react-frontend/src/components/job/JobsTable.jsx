@@ -103,7 +103,7 @@ const JobsTable = ({ setShowFormUpdate, setJobId, searchTerm, jobs }) => {
               <td>{job.status}</td>
               <td>
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-warning"
                   data-id={job.id}
                   onClick={viewHandler}
                   >view

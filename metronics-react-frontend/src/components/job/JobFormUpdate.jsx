@@ -211,7 +211,7 @@ const JobFormUpdate = ({ jobId, setJobId, setShowFormUpdate }) => {
               <button className="btn btn-primary me-3 form-btn" type="submit">
                 Save
               </button>
-              <button className="btn btn-danger form-btn"
+              <button className="btn btn-secondary form-btn"
                 onClick={() => setShowFormUpdate(false)}
                 >Cancel
               </button>

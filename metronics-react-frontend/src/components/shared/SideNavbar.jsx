@@ -6,7 +6,7 @@ const SideNavbar = () => {
       <h1 className="text-center mt-5">Metronics</h1>
       <ul className="mx-auto">
         <li className="my-5">
-          <Link to={'/home'}>Dashboard</Link>
+          <Link to={'/'}>Dashboard</Link>
         </li>
         <li className="my-5">
           <Link to={'/customers'}>Customers</Link>

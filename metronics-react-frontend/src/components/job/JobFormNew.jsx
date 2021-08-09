@@ -3,12 +3,10 @@ import { useMutation, useQueryClient } from "react-query";
 import useCustomers from '../../hooks/useCustomers';
 import AutoCompleteSearch from "./AutoCompleteSearch";
 import API from '../../API';
-import axios from "axios";
 
-const JobFormNew = ({ setShowFormNew }) => {
+const JobFormNew = ({ setShowFormNew, customerSearchTerm }) => {
   const { status, data, error } = useCustomers();
   const [customer, setCustomer] = useState();
-  const [searchTerm, setSearchTerm] = useState('');
   const [customerExists, setCustomerExists] = useState(false);
 
   // Capture form input for job
@@ -20,11 +18,11 @@ const JobFormNew = ({ setShowFormNew }) => {
 
   // Find existing customer info
   useEffect(() => {
-    if (searchTerm === '') {
+    if (customerSearchTerm === '') {
       return;
     }
-    setCustomer(data.data.filter(customer => customer.businessName.toLowerCase().includes(searchTerm.toLowerCase())));
-  }, [searchTerm])
+    setCustomer(data.data.filter(customer => customer.businessName.toLowerCase().includes(customerSearchTerm.toLowerCase())));
+  }, [customerSearchTerm])
 
   // Mutations
   const queryClient = useQueryClient();
@@ -228,7 +226,7 @@ const JobFormNew = ({ setShowFormNew }) => {
                 Save
               </button>
               <button
-                className="btn btn-danger form-btn"
+                className="btn btn-secondary form-btn"
                 onClick={() => setShowFormNew(false)}
               >
                 Cancel

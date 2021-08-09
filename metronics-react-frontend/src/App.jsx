@@ -11,7 +11,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <Router>
         <Switch>
-          <Route exact path="/home" component={Home} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/service" component={Jobs} />
           <Route exact path="/customers" component={Customers} />
           <Route exact path="/inventory" component={Inventory} />

@@ -1,24 +1,49 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import API from '../../API';
 
-const CustomerTable = ({ customers }) => {
-  const [customerList, setCustomerList] = useState(customers)
+const CustomerTable = ({ setShowFormUpdate, setCustomerId, searchTerm, customers }) => {
+  const [customerList, setCustomerList] = useState(customers);
+
+  // Search for customers
+  useEffect(() => {
+    if (searchTerm === "") {
+      setCustomerList(customers);
+      return;
+    }
+    setCustomerList(
+      customers.filter((customer) => {
+        if (customer.businessName.toLowerCase().includes(searchTerm.toLowerCase())) {
+          return true;
+        } else if (customer.city !== null && customer.city.toLowerCase().includes(searchTerm.toLowerCase())) {
+          return true;
+        } else if (customer.phone !== null && customer.phone.includes(searchTerm)) {
+          return true;
+        }
+        return false;
+      })
+    );
+  }, [searchTerm, customers]);
 
   // Mutations
   const queryClient = useQueryClient();
-  const deleteCustomer = useMutation(id => API.deleteCustomer(id), {
+  const deleteCustomer = useMutation((id) => API.deleteCustomer(id), {
     onSuccess: () => {
-      queryClient.invalidateQueries('customers')
-      console.log("Customer deleted!")
-    }
-  })
+      queryClient.invalidateQueries("customers");
+      console.log("Customer deleted!");
+    },
+  });
 
   // Event Handlers
-  const deleteHandler = async e => {
+  const viewHandler = e => {
     e.preventDefault();
-    await deleteCustomer.mutate(parseInt(e.target.dataset.id))
-  }
+    setCustomerId(parseInt(e.target.dataset.id));
+    setShowFormUpdate(true);
+  };
+  const deleteHandler = async (e) => {
+    e.preventDefault();
+    await deleteCustomer.mutate(parseInt(e.target.dataset.id));
+  };
 
   return (
     <div className="mt-5">
@@ -34,28 +59,31 @@ const CustomerTable = ({ customers }) => {
           </tr>
         </thead>
         <tbody>
-          {customerList.map(customer => (
+          {customerList.map((customer) => (
             <tr key={customer.id}>
               <td>{customer.businessName}</td>
               <td>{customer.phone}</td>
               <td>
                 {customer.street1}
-                {customer.street2 !== '' ? customer.street2 : ''}<br></br>
+                {customer.street2 !== "" ? ", " + customer.street2 : ""}
+                <br></br>
                 {customer.city}, {customer.state} {customer.zipcode}
               </td>
               <td>{customer.contactName}</td>
               <td>
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-warning"
                   data-id={customer.id}
-                  // onClick={viewHandler}
-                  >view
+                  onClick={viewHandler}
+                >
+                  view
                 </button>
                 <button
                   className="btn btn-danger ms-4"
                   data-id={customer.id}
                   onClick={deleteHandler}
-                  >X
+                >
+                  X
                 </button>
               </td>
             </tr>
