@@ -12,7 +12,7 @@ const CustomerTable = ({ setShowFormUpdate, setCustomerId, searchTerm, customers
       return;
     }
     setCustomerList(
-      customers.filter((customer) => {
+      customers.filter(customer => {
         if (customer.businessName.toLowerCase().includes(searchTerm.toLowerCase())) {
           return true;
         } else if (customer.city !== null && customer.city.toLowerCase().includes(searchTerm.toLowerCase())) {
@@ -27,7 +27,7 @@ const CustomerTable = ({ setShowFormUpdate, setCustomerId, searchTerm, customers
 
   // Mutations
   const queryClient = useQueryClient();
-  const deleteCustomer = useMutation((id) => API.deleteCustomer(id), {
+  const deleteCustomer = useMutation(id => API.deleteCustomer(id), {
     onSuccess: () => {
       queryClient.invalidateQueries("customers");
       console.log("Customer deleted!");
@@ -40,7 +40,7 @@ const CustomerTable = ({ setShowFormUpdate, setCustomerId, searchTerm, customers
     setCustomerId(parseInt(e.target.dataset.id));
     setShowFormUpdate(true);
   };
-  const deleteHandler = async (e) => {
+  const deleteHandler = async e => {
     e.preventDefault();
     await deleteCustomer.mutate(parseInt(e.target.dataset.id));
   };
@@ -60,7 +60,7 @@ const CustomerTable = ({ setShowFormUpdate, setCustomerId, searchTerm, customers
         </thead>
 
         <tbody>
-          {customerList.map((customer) => (
+          {customerList.map(customer => (
             <tr key={customer.id}>
               <td>{customer.businessName}</td>
               <td>
