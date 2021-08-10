@@ -16,6 +16,8 @@ const CustomerJobEdit = ({ jobId, setShowTable, customerId }) => {
     onSuccess: () => {
       queryClient.invalidateQueries('jobs')
       queryClient.invalidateQueries(['job', jobId])
+      queryClient.invalidateQueries('customers')
+      queryClient.invalidateQueries(['customer', customerId])
       console.log("Job updated!")
     }
   });
@@ -43,8 +45,6 @@ const CustomerJobEdit = ({ jobId, setShowTable, customerId }) => {
     case "error":
       return <h4 className="text-center my-5">Error: {error.message}</h4>;
     default:
-      customerId = data.data.customerId
-
       return (
         <>
           <form className="p-5" onSubmit={handleSubmit}>
@@ -110,8 +110,9 @@ const CustomerJobEdit = ({ jobId, setShowTable, customerId }) => {
             </div>
 
             <div className="mt-4 px-3">
-              <button className="btn btn-primary me-3 form-btn" type="submit">
-                Update
+              <button className="btn btn-primary me-3 form-btn" 
+                type="submit"
+                >Update
               </button>
               <button className="btn btn-secondary form-btn"
                 onClick={() => setShowTable(true)}

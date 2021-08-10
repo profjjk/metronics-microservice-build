@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import useCustomers from '../../hooks/useCustomers';
-import { SideNavbar, Searchbar, CustomerTable, CustomerFormNew, CustomerFormUpdate } from '../../components';
+import useCustomers from '../hooks/useCustomers';
+import { SideNavbar, Searchbar, CustomerTable, CustomerFormNew, CustomerFormUpdate } from '../components';
 
 const Customers = () => {
   const { status, data, error, isFetching } = useCustomers();
@@ -16,63 +15,63 @@ const Customers = () => {
     case "error":
       return <h4 className="text-center my-5">Error: {error.message}</h4>;
     default:
-      return (
-        <main>
-          <div className="p-5">
-            <SideNavbar />
-            {showFormUpdate || showFormNew ? (
-              ""
-            ) : (
+      if (!showFormNew && !showFormUpdate) {
+        return (
+          <main>
+            <div className="p-5">
+              <SideNavbar />
               <Searchbar
                 heading="Customer Search"
                 subheading="Search by business name, city name, or phone #"
                 placeholder="Business Name, city name, or phone #"
                 setSearch={setSearchTerm}
               />
-            )}
-            {!showFormUpdate && !showFormNew ? (
               <button
                 className="btn btn-success me-3 mt-5"
                 onClick={() => setShowFormNew(true)}
               >
                 Create New Customer
               </button>
-            ) : (
-              ""
-            )}
-            {showFormUpdate ? (
-              <CustomerFormUpdate 
-                setShowFormUpdate={setShowFormUpdate} 
-                customerId={customerId}
-              />
-            ) : (
-              ""
-            )}
-            {showFormNew ? (
-              <CustomerFormNew setShowFormNew={setShowFormNew} />
-            ) : (
-              ""
-            )}
-            {!showFormUpdate && !showFormNew ? (
               <CustomerTable
                 setShowFormUpdate={setShowFormUpdate}
                 setCustomerId={setCustomerId}
                 searchTerm={searchTerm}
                 customers={data.data}
               />
-            ) : (
-              ""
-            )}
-            {isFetching ? (
-              <p className="text-center my-5">
-                Getting information from database...
-              </p>
-            ) : (
-              ""
-            )}
-          </div>
-        </main>
-      );
+              {isFetching ? <p className="text-center my-5">Getting information from database...</p> : "" }
+            </div>
+          </main>
+        )
+      }
+
+      if (showFormNew) {
+        return (
+          <main>
+            <div className="p-5">
+              <SideNavbar />
+              <CustomerFormNew 
+                setShowFormNew={setShowFormNew} 
+              />
+              {isFetching ? <p className="text-center my-5">Getting information from database...</p> : "" }
+            </div>
+          </main>
+        )
+      }
+
+      if (showFormUpdate) {
+        return (
+          <main>
+            <div className="p-5">
+              <SideNavbar />
+              <CustomerFormUpdate 
+                setShowFormUpdate={setShowFormUpdate} 
+                customerId={customerId}
+              />
+              {isFetching ? <p className="text-center my-5">Getting information from database...</p> : "" }
+            </div>
+          </main>
+        )
+      }
   }
 }
 

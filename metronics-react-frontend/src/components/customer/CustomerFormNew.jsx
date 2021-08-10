@@ -107,8 +107,9 @@ const CustomerFormNew = ({ setShowFormNew }) => {
         </div>
 
         <div className="mt-4 px-3">
-          <button className="btn btn-primary me-3 form-btn" type="submit">
-            Save
+          <button className="btn btn-primary me-3 form-btn" 
+            type="submit"
+            >Save
           </button>
           <button
             className="btn btn-secondary form-btn"

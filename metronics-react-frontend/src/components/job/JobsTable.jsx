@@ -66,7 +66,9 @@ const JobsTable = ({ setShowFormUpdate, setJobId, searchTerm, jobs }) => {
 
   return (
     <div className="mt-5">
+
       <h3 className="float-start">Service Job Search Results:</h3>
+
       <div className="float-end">
         <select className="form-select" onChange={selectionHandler}>
           <option>Filter by status</option>
@@ -76,6 +78,7 @@ const JobsTable = ({ setShowFormUpdate, setJobId, searchTerm, jobs }) => {
           <option>Canceled</option>
         </select>
       </div>
+
       <table className="table">
         <thead>
           <tr>
@@ -88,6 +91,7 @@ const JobsTable = ({ setShowFormUpdate, setJobId, searchTerm, jobs }) => {
             <th scope="col"></th>
           </tr>
         </thead>
+
         <tbody>
           {jobList.map(job => (
             <tr key={job.id}>
@@ -120,6 +124,7 @@ const JobsTable = ({ setShowFormUpdate, setJobId, searchTerm, jobs }) => {
             </tr>
           ))}
         </tbody>
+        
       </table>
     </div>
   );

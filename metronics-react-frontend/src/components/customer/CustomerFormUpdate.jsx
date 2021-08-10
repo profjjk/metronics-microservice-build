@@ -18,12 +18,13 @@ const CustomerFormUpdate = ({ setShowFormUpdate, customerId }) => {
   const queryClient = useQueryClient();
   const editCustomer = useMutation(customer => API.updateCustomer(customer), {
     onSuccess: () => {
-      queryClient.invalidateQueries('customers')
+      // queryClient.invalidateQueries('customers')
+      queryClient.invalidateQueries(['customer', customerId])
       console.log("Customer updated!")
     }
   });
 
-  // Handlers
+  // Event Handlers
   const handleSubmit = async e => {
     e.preventDefault();
     const customerInfo = {
@@ -128,14 +129,14 @@ const CustomerFormUpdate = ({ setShowFormUpdate, customerId }) => {
             </div>
 
             <div className="mt-4 px-3">
-              <button className="btn btn-primary me-3 form-btn" type="submit">
-                Update
+              <button className="btn btn-primary me-3 form-btn" 
+                type="submit"
+                >Update
               </button>
               <button
                 className="btn btn-secondary form-btn"
                 onClick={() => setShowFormUpdate(false)}
-              >
-                Cancel
+                >Cancel
               </button>
             </div>
           </form>
