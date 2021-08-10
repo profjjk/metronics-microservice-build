@@ -23,23 +23,20 @@ const PartsTable = ({ searchTerm, parts }) => {
 
   // Mutations
   const queryClient = useQueryClient();
-  const deletepart = useMutation(id => API.deletepart(id), {
+  const updatePart = useMutation(part => API.updatePart(part), {
     onSuccess: () => {
       queryClient.invalidateQueries('parts')
-      console.log("part deleted!")
+      console.log("Part updated!")
     }
   })
 
   // Event Handlers
+  const editHandler = async part => await updatePart.mutate(part);
   const viewHandler = e => {
     e.preventDefault();
     // setpartId(parseInt(e.target.dataset.id));
     // setShowFormUpdate(true);
   };
-  const deleteHandler = async e => {
-    e.preventDefault();
-    await deletepart.mutate(parseInt(e.target.dataset.id))
-  }
 
   return (
     <div className="mt-5">
@@ -57,7 +54,7 @@ const PartsTable = ({ searchTerm, parts }) => {
           </tr>
         </thead>
         <tbody>
-          {partList.map((part) => (
+          {partList.map(part => (
             <tr key={part.id}>
               <td>{part.partNumber}</td>
               <td>{part.description}</td>
@@ -68,25 +65,22 @@ const PartsTable = ({ searchTerm, parts }) => {
                 <button
                   className="btn btn-secondary"
                   data-id={part.id}
-                  onClick={viewHandler}
-                >
-                  +
+                  onClick={() => editHandler({ ...part, quantity: part.quantity + 1 })}
+                  >+
                 </button>
                 <button
                   className="btn btn-secondary ms-4"
                   data-id={part.id}
-                  onClick={deleteHandler}
-                >
-                  -
+                  onClick={() => editHandler({ ...part, quantity: part.quantity - 1 })}
+                  >-
                 </button>
               </td>
               <td>
                 <button
                   className="btn btn-warning ms-4"
                   data-id={part.id}
-                  // onClick={editHandler}
-                >
-                  edit
+                  onClick={viewHandler}
+                  >edit
                 </button>
               </td>
             </tr>

@@ -10,14 +10,6 @@ public class Part {
     private double salePrice;
     private int quantity;
 
-    public Part(String partNumber, String description, double purchasePrice, double salePrice, int quantity) {
-        this.partNumber = partNumber;
-        this.description = description;
-        this.purchasePrice = purchasePrice;
-        this.salePrice = salePrice;
-        this.quantity = quantity;
-    }
-
     public Integer getId() {
         return id;
     }
