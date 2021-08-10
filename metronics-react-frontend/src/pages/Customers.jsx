@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import useCustomers from '../hooks/useCustomers';
-import { SideNavbar, Searchbar, CustomerTable, CustomerFormNew, CustomerFormUpdate } from '../components';
+import { Link } from 'react-router-dom';
+import useCustomers from '../../hooks/useCustomers';
+import { SideNavbar, Searchbar, CustomerTable, CustomerFormNew, CustomerFormUpdate } from '../../components';
 
 const Customers = () => {
   const { status, data, error, isFetching } = useCustomers();
