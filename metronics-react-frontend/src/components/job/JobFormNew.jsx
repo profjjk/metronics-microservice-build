@@ -4,7 +4,7 @@ import useCustomers from '../../hooks/useCustomers';
 import AutoCompleteSearch from "./AutoCompleteSearch";
 import API from '../../API';
 
-const JobFormNew = ({ setShowFormNew, customerSearchTerm }) => {
+const JobFormNew = ({ setShowFormNew }) => {
   const { status, data, error } = useCustomers();
   const [customer, setCustomer] = useState();
   const [customerExists, setCustomerExists] = useState(false);
@@ -12,17 +12,10 @@ const JobFormNew = ({ setShowFormNew, customerSearchTerm }) => {
   // Capture form input for job
   let jobStatus = useRef(''); let type = useRef(''); let dateCompleted = useRef(''); 
   let invoiceNumber = useRef(''); let problemNotes = useRef(''); let repairNotes = useRef('');
+
   // Capture form input for customer
   let customerId; let businessName = useRef(''); let contactName = useRef(''); let phone = useRef('');
   let street1 = useRef(''); let street2 = useRef(''); let city = useRef(''); let state = useRef(''); let zipcode = useRef('');
-
-  // Find existing customer info
-  useEffect(() => {
-    if (customerSearchTerm === '') {
-      return;
-    }
-    setCustomer(data.data.filter(customer => customer.businessName.toLowerCase().includes(customerSearchTerm.toLowerCase())));
-  }, [customerSearchTerm])
 
   // Mutations
   const queryClient = useQueryClient();
@@ -46,7 +39,7 @@ const JobFormNew = ({ setShowFormNew, customerSearchTerm }) => {
     }
   });
 
-  // Handlers
+  // Event Handlers
   const handleSubmit = async e => {
     e.preventDefault();
     const jobInfo = {
@@ -228,8 +221,7 @@ const JobFormNew = ({ setShowFormNew, customerSearchTerm }) => {
               <button
                 className="btn btn-secondary form-btn"
                 onClick={() => setShowFormNew(false)}
-              >
-                Cancel
+                >Cancel
               </button>
             </div>
           </form>

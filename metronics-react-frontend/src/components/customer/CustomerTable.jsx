@@ -52,23 +52,24 @@ const CustomerTable = ({ setShowFormUpdate, setCustomerId, searchTerm, customers
         <thead>
           <tr>
             <th scope="col">Business Name</th>
-            <th scope="col">Phone #</th>
             <th scope="col">Address</th>
+            <th scope="col">Phone #</th>
             <th scope="col">Contact Name</th>
             <th scope="col"></th>
           </tr>
         </thead>
+
         <tbody>
           {customerList.map((customer) => (
             <tr key={customer.id}>
               <td>{customer.businessName}</td>
-              <td>{customer.phone}</td>
               <td>
                 {customer.street1}
                 {customer.street2 !== "" ? ", " + customer.street2 : ""}
                 <br></br>
                 {customer.city}, {customer.state} {customer.zipcode}
               </td>
+              <td>{customer.phone}</td>
               <td>{customer.contactName}</td>
               <td>
                 <div className="float-end">
@@ -76,15 +77,13 @@ const CustomerTable = ({ setShowFormUpdate, setCustomerId, searchTerm, customers
                     className="btn btn-warning"
                     data-id={customer.id}
                     onClick={viewHandler}
-                  >
-                    view
+                    >view
                   </button>
                   <button
                     className="btn btn-danger ms-4"
                     data-id={customer.id}
                     onClick={deleteHandler}
-                  >
-                    X
+                    >X
                   </button>
                 </div>
               </td>
