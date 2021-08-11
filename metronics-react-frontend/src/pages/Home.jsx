@@ -1,13 +1,17 @@
-import { SideNavbar } from '../components';
+import { SideNavbar, QuickActions, OrderParts, ScheduleJobs, JobFormNew, CustomerFormNew, PartFormNew } from '../components';
 import useJobs from '../hooks/useJobs';
 import useCustomers from '../hooks/useCustomers';
 import useParts from '../hooks/useParts';
-import React from 'react';
+import { useState } from 'react';
 
 const Home = () => {
   const jobs = useJobs();
   const customers = useCustomers();
   const parts = useParts();
+
+  const [showJobForm, setShowJobForm] = useState(false);
+  const [showCustomerForm, setShowCustomerForm] = useState(false);
+  const [showPartForm, setShowPartForm] = useState(false);
 
   switch (jobs.status || parts.status || customers.status) {
     case 'loading':
@@ -15,12 +19,65 @@ const Home = () => {
     case 'error':
       return <h4 className="text-center my-5">Oops, something went wrong!</h4>
     default:
-      return (
-        <main>
-          <SideNavbar />
-          <h1 className="text-center my-5">Data Load Successful</h1>
-        </main>
-      );
+      if (!showJobForm && !showCustomerForm && !showPartForm) {
+        return (
+          <main>
+            <SideNavbar />
+            <div className="p-5">
+              <QuickActions 
+                setShowJobForm={setShowJobForm}
+                setShowCustomerForm={setShowCustomerForm}
+                setShowPartForm={setShowPartForm}
+              />
+              <OrderParts 
+                parts={parts.data.data} 
+              />
+              <ScheduleJobs 
+                jobs={jobs.data.data}
+              />
+            </div>
+          </main>
+        );
+      }
+
+      if (showJobForm) {
+        return (
+          <main>
+            <SideNavbar />
+            <div className="p-5">
+              <JobFormNew 
+                setShowFormNew={setShowJobForm}
+              />
+            </div>
+          </main>
+        )
+      }
+
+      if (showCustomerForm) {
+        return (
+          <main>
+            <SideNavbar />
+            <div className="p-5">
+              <CustomerFormNew 
+                setShowFormNew={setShowCustomerForm}
+              />
+            </div>
+          </main>
+        )
+      }
+
+      if (showPartForm) {
+        return (
+          <main>
+            <SideNavbar />
+            <div className="p-5">
+              <PartFormNew 
+                setShowFormNew={setShowPartForm}
+              />
+            </div>
+          </main>
+        )
+      }
   }
 }
 

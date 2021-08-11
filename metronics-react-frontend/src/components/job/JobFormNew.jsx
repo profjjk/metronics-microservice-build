@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import useCustomers from '../../hooks/useCustomers';
 import AutoCompleteSearch from "./AutoCompleteSearch";

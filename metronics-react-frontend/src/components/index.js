@@ -1,5 +1,8 @@
 export { default as SideNavbar } from './shared/SideNavbar';
 export { default as Searchbar } from './shared/Searchbar';
+export { default as QuickActions } from './dashboard/QuickActions';
+export { default as OrderParts } from './dashboard/OrderParts';
+export { default as ScheduleJobs } from './dashboard/ScheduleJobs';
 export { default as JobsTable } from './job/JobsTable';
 export { default as JobFormUpdate } from './job/JobFormUpdate';
 export { default as JobFormNew } from './job/JobFormNew';
