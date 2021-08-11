@@ -9,3 +9,5 @@ export { default as CustomerFormNew } from './customer/CustomerFormNew';
 export { default as CustomerFormUpdate } from './customer/CustomerFormUpdate';
 export { default as CustomerJobsTable } from './customer/CustomerJobsTable';
 export { default as PartsTable } from './part/PartsTable';
+export { default as PartFormNew } from './part/PartFormNew';
+export { default as PartFormUpdate } from './part/PartFormUpdate';

@@ -9,13 +9,13 @@ const JobsTable = ({ setShowFormUpdate, setJobId, searchTerm, jobs }) => {
   // Filter by status
   useEffect(() => {
     if (jobStatus === "Waiting") {
-      setJobList(jobList.filter(job => job.status === "waiting"));
+      setJobList(jobs.filter(job => job.status === "waiting"));
     } else if (jobStatus === "Scheduled") {
-      setJobList(jobList.filter(job => job.status === "scheduled"));
+      setJobList(jobs.filter(job => job.status === "scheduled"));
     } else if (jobStatus === "Completed") {
-      setJobList(jobList.filter(job => job.status === "completed"));
+      setJobList(jobs.filter(job => job.status === "completed"));
     } else if (jobStatus === "Canceled") {
-      setJobList(jobList.filter(job => job.status === "canceled"));
+      setJobList(jobs.filter(job => job.status === "canceled"));
     } else {
       setJobList(jobs);
     }
@@ -124,7 +124,6 @@ const JobsTable = ({ setShowFormUpdate, setJobId, searchTerm, jobs }) => {
             </tr>
           ))}
         </tbody>
-        
       </table>
     </div>
   );
