@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import API from '../../API';
 
-const PartsTable = ({ searchTerm, parts }) => {
+const PartsTable = ({ setShowFormUpdate, setPartId, searchTerm, parts }) => {
   const [partList, setPartList] = useState(parts)
 
   // Search for parts
@@ -29,14 +29,24 @@ const PartsTable = ({ searchTerm, parts }) => {
       console.log("Part updated!")
     }
   })
+  const deletePart = useMutation(id => API.deletePart(id), {
+    onSuccess: () => {
+      queryClient.invalidateQueries('parts')
+      console.log("Part deleted!")
+    }
+  })
 
   // Event Handlers
   const editHandler = async part => await updatePart.mutate(part);
   const viewHandler = e => {
     e.preventDefault();
-    // setpartId(parseInt(e.target.dataset.id));
-    // setShowFormUpdate(true);
+    setPartId(parseInt(e.target.dataset.id));
+    setShowFormUpdate(true);
   };
+  const deleteHandler = async e => {
+    e.preventDefault();
+    await deletePart.mutate(parseInt(e.target.dataset.id))
+  }
 
   return (
     <div className="mt-5">
@@ -53,13 +63,14 @@ const PartsTable = ({ searchTerm, parts }) => {
             <th scope="col"></th>
           </tr>
         </thead>
+
         <tbody>
           {partList.map(part => (
             <tr key={part.id}>
               <td>{part.partNumber}</td>
               <td>{part.description}</td>
-              <td className="text-center">{part.purchasePrice}</td>
-              <td className="text-center">{part.salePrice}</td>
+              <td className="text-center text-danger">{part.purchasePrice}</td>
+              <td className="text-center text-success">{part.salePrice}</td>
               <td className="text-center">{part.quantity}</td>
               <td className="d-flex justify-content-center">
                 <button
@@ -76,12 +87,20 @@ const PartsTable = ({ searchTerm, parts }) => {
                 </button>
               </td>
               <td>
-                <button
-                  className="btn btn-warning ms-4"
-                  data-id={part.id}
-                  onClick={viewHandler}
-                  >edit
-                </button>
+                <div className="float-end">
+                  <button
+                    className="btn btn-warning"
+                    data-id={part.id}
+                    onClick={viewHandler}
+                    >edit
+                  </button>
+                  <button
+                    className="btn btn-danger ms-4"
+                    data-id={part.id}
+                    onClick={deleteHandler}
+                    >X
+                  </button>
+                </div>
               </td>
             </tr>
           ))}

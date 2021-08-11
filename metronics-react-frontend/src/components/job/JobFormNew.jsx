@@ -42,6 +42,7 @@ const JobFormNew = ({ setShowFormNew }) => {
   // Event Handlers
   const handleSubmit = async e => {
     e.preventDefault();
+
     const jobInfo = {
       status: jobStatus.current.value, 
       type: type.current.value, 
@@ -50,6 +51,7 @@ const JobFormNew = ({ setShowFormNew }) => {
       problemNotes: problemNotes.current.value, 
       repairNotes: repairNotes.current.value
     }
+
     const customerInfo = {
       businessName: businessName.current.value, 
       contactName: contactName.current.value, 
@@ -60,6 +62,7 @@ const JobFormNew = ({ setShowFormNew }) => {
       state: state.current.value, 
       zipcode: zipcode.current.value
     }
+
     if (customerExists) {
       await editCustomer.mutate({ id: customer[0].id, ...customerInfo });
       await createJob.mutate({ customerId: customer[0].id, ...jobInfo });
@@ -67,6 +70,7 @@ const JobFormNew = ({ setShowFormNew }) => {
       let newCustomer = await createCustomer.mutateAsync(customerInfo)
       await createJob.mutate({ customerId: newCustomer.id, ...jobInfo })
     }
+    
     setShowFormNew(false);
   };
 
@@ -152,6 +156,7 @@ const JobFormNew = ({ setShowFormNew }) => {
                   ref={phone}
                 />
               </div>
+
               <div className="px-3">
                 <h6>Address</h6>
                 <input

@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "react-query";
 import useJob from '../../hooks/useJob';
 import API from '../../API';
 
-const JobFormUpdate = ({ jobId, setJobId, setShowFormUpdate }) => {
+const JobFormUpdate = ({ jobId, setShowFormUpdate }) => {
   const { status, data, error } = useJob(jobId);
 
   // Capture form input for job
@@ -56,7 +56,6 @@ const JobFormUpdate = ({ jobId, setJobId, setShowFormUpdate }) => {
     }
     await editJob.mutate(jobInfo);
     await editCustomer.mutate(customerInfo)
-    setJobId('');
     setShowFormUpdate(false);
   };
 
@@ -218,7 +217,7 @@ const JobFormUpdate = ({ jobId, setJobId, setShowFormUpdate }) => {
             </div>
           </form>
 
-          {/* <div id="parts-area" className="mt-5 p-5">
+          <div id="parts-area" className="mt-5 p-5">
               <div>
                 <h6 className="px-3">Add any parts that you used:</h6>
                 <div className="part-form px-3">
@@ -248,7 +247,7 @@ const JobFormUpdate = ({ jobId, setJobId, setShowFormUpdate }) => {
                   </tbody>
                 </table>
               </div>
-            </div> */}
+            </div>
         </>
       );
   }
