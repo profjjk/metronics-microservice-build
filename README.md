@@ -4,10 +4,10 @@
 This is a full stack application that was created for a real-world service company in the automotive industry. This application helps them to take their existing analog business and make it digital by allowing them to track customers, service jobs, and inventory via an online database. It was build using a microservice architecture to allow for greater flexibility and scalability as the business expands.
 
 ## Table of Contents:
-* [Technologies Used](#technologies-used:)
-* [Screenshots](#screenshots:)
+* [Technologies Used](#technologies-used)
+* [Screenshots](#screenshots)
 
-## Technologies Used:
+# Technologies Used:
 - [Java](https://go.java/?intcmp=gojava-banner-java-com)
 - [Spring Framework](https://spring.io/projects/spring-framework)
 - [React](https://reactjs.org/)
@@ -20,7 +20,7 @@ This is a full stack application that was created for a real-world service compa
 - [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
 - [Bootstrap](https://getbootstrap.com/)
 
-## Screenshots:
+# Screenshots:
 After login, the Metronics user is greeted with an overview of their business operations. They take quick actions to add new customers, new service jobs, or parts to inventory. A filtered list of parts that are low in inventory is displayed so that they know what to re-order. They can also see any new service jobs that have yet to be contacted and scheduled.
 ![Dashboard](images/dashboard.png)
 ___
