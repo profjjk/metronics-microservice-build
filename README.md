@@ -21,7 +21,17 @@ This is a full stack application that was created for a real-world service compa
 - [Bootstrap](https://getbootstrap.com/)
 
 ## Screenshots:
-![Dashboard](https://github.com/profjjk/my-job/blob/main/public/img/Landing%20Page.jpg)
-![Service Jobs](https://github.com/profjjk/my-job/blob/main/public/img/Landing%20Page.jpg)
-![Customers](https://github.com/profjjk/my-job/blob/main/public/img/Landing%20Page.jpg)
-![Inventory](https://github.com/profjjk/my-job/blob/main/public/img/Landing%20Page.jpg)
+After login, the Metronics user is greeted with an overview of their business operations. They take quick actions to add new customers, new service jobs, or parts to inventory. A filtered list of parts that are low in inventory is displayed so that they know what to re-order. They can also see any new service jobs that have yet to be contacted and scheduled.
+![Dashboard](images/dashboard.png)
+___
+At the customer screen, they can search for a specific customer and view or update their information.
+![Customers](images/customer-main.png)
+When viewing an individual customer, they can also see a full history of jobs that they have completed for that customer. A feature that Metronics is very excited about.
+![Customers](images/customer-ind.png)
+___
+At the service screen, they can view all of the service jobs that they have done, are doing, or will do for their customers. Being able to search through their service history by invoice #, date, and customer name with ease is an exciting new capability for the company.
+![Service Jobs](images/service-all.png)
+They can select individual jobs where they can update both customer and job information all on one screen.
+![Service Jobs](images/service-ind.png)
+Gone are the days of manually searching through inventory to find out if they have the parts they need. Now they search through a database of parts to discover what they have in stock.
+![Inventory](images/inventory.png)

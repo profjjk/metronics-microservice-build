@@ -1,5 +1,13 @@
 # Metronics React Frontend
 
+## Table of Contents:
+=================================================================
+
+* [Technologies Used](##technologies-used)
+* [Code Examples](##code-examples)
+
+## Technologies Used
+
 ## Code Examples
 Custom hooks for fetching data using react-query:
 ```javascript
