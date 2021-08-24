@@ -4,8 +4,8 @@
 This is a full stack application that was created for a real-world service company in the automotive industry. This application helps them to take their existing analog business and make it digital by allowing them to track customers, service jobs, and inventory via an online database. It was build using a microservice architecture to allow for greater flexibility and scalability as the business expands.
 
 ## Table of Contents:
-* [Technologies Used](##technologies-used:)
-* [Screenshots](##screenshots:)
+* [Technologies Used](#technologies-used:)
+* [Screenshots](#screenshots:)
 
 ## Technologies Used:
 - [Java](https://go.java/?intcmp=gojava-banner-java-com)
