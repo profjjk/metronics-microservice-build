@@ -93,5 +93,4 @@ const AutoCompleteSearch = ({ customers, setCustomer, setCustomerExists }) => {
   );
 }
 
-
 export default AutoCompleteSearch;

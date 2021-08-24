@@ -49,7 +49,7 @@ const JobsTable = ({ setShowFormUpdate, setJobId, searchTerm, jobs }) => {
     }
   })
 
-  // Handlers
+  // Event Handlers
   const selectionHandler = e => {
     e.preventDefault();
     setJobStatus(e.target.value);
@@ -66,7 +66,6 @@ const JobsTable = ({ setShowFormUpdate, setJobId, searchTerm, jobs }) => {
 
   return (
     <div className="mt-5">
-
       <h3 className="float-start">Service Job Search Results:</h3>
 
       <div className="float-end">

@@ -33,6 +33,7 @@ const JobFormUpdate = ({ jobId, setShowFormUpdate }) => {
   // Handlers
   const handleSubmit = async e => {
     e.preventDefault();
+    
     const jobInfo = {
       id: jobId, 
       customerId: customerId, 
@@ -54,8 +55,10 @@ const JobFormUpdate = ({ jobId, setShowFormUpdate }) => {
       state: state.current.value, 
       zipcode: zipcode.current.value
     }
+
     await editJob.mutate(jobInfo);
     await editCustomer.mutate(customerInfo)
+
     setShowFormUpdate(false);
   };
 
@@ -217,7 +220,7 @@ const JobFormUpdate = ({ jobId, setShowFormUpdate }) => {
             </div>
           </form>
 
-          <div id="parts-area" className="mt-5 p-5">
+          {/* <div id="parts-area" className="mt-5 p-5">
               <div>
                 <h6 className="px-3">Add any parts that you used:</h6>
                 <div className="part-form px-3">
@@ -247,7 +250,7 @@ const JobFormUpdate = ({ jobId, setShowFormUpdate }) => {
                   </tbody>
                 </table>
               </div>
-            </div>
+            </div> */}
         </>
       );
   }

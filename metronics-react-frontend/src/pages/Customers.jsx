@@ -4,6 +4,7 @@ import { SideNavbar, Searchbar, CustomerTable, CustomerFormNew, CustomerFormUpda
 
 const Customers = () => {
   const { status, data, error, isFetching } = useCustomers();
+  
   const [searchTerm, setSearchTerm] = useState('');
   const [customerId, setCustomerId] = useState();
   const [showFormUpdate, setShowFormUpdate] = useState(false);
@@ -76,7 +77,3 @@ const Customers = () => {
 }
 
 export default Customers;
-
-/** ISSUES
- * Won't automatically refresh data in CustomerJobsTable after making an edit in CustomerJobsEdit despite invalidating query...?
- */

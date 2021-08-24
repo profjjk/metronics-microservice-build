@@ -1,19 +1,16 @@
 import { SideNavbar, QuickActions, OrderParts, ScheduleJobs, JobFormNew, CustomerFormNew, PartFormNew } from '../components';
 import useJobs from '../hooks/useJobs';
-import useCustomers from '../hooks/useCustomers';
 import useParts from '../hooks/useParts';
 import { useState } from 'react';
 
 const Home = () => {
-  const jobs = useJobs();
-  const customers = useCustomers();
-  const parts = useParts();
+  const jobs = useJobs(); const parts = useParts();
 
   const [showJobForm, setShowJobForm] = useState(false);
   const [showCustomerForm, setShowCustomerForm] = useState(false);
   const [showPartForm, setShowPartForm] = useState(false);
 
-  switch (jobs.status || parts.status || customers.status) {
+  switch (jobs.status || parts.status) {
     case 'loading':
       return <h1 className="text-center my-5">Loading</h1>;
     case 'error':

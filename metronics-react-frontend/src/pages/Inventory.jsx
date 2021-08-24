@@ -4,6 +4,7 @@ import { SideNavbar, Searchbar, PartsTable, PartFormNew, PartFormUpdate } from '
 
 const Inventory = () => {
   const { status, data, error, isFetching } = useParts();
+  
   const [searchTerm, setSearchTerm] = useState('');
   const [partId, setPartId] = useState('');
   const [showFormNew, setShowFormNew] = useState(false);

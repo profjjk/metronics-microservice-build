@@ -4,6 +4,7 @@ import { SideNavbar, Searchbar, JobFormUpdate, JobsTable, JobFormNew } from '../
 
 const Jobs = () => {
   const { status, data, error, isFetching } = useJobs();
+  
   const [searchTerm, setSearchTerm] = useState('');
   const [showFormUpdate, setShowFormUpdate] = useState(false);
   const [showFormNew, setShowFormNew] = useState(false);

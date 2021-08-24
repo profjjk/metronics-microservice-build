@@ -67,7 +67,7 @@ const JobFormNew = ({ setShowFormNew }) => {
       await editCustomer.mutate({ id: customer[0].id, ...customerInfo });
       await createJob.mutate({ customerId: customer[0].id, ...jobInfo });
     } else {
-      let newCustomer = await createCustomer.mutateAsync(customerInfo)
+      let newCustomer = await createCustomer.mutate(customerInfo)
       await createJob.mutate({ customerId: newCustomer.id, ...jobInfo })
     }
     
